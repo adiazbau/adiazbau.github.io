@@ -1,0 +1,22 @@
+name: Desplegar en UMU
+
+on:
+  push:
+    branches:
+      - main # Cambia a 'master' si tu rama principal se llama así
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Sincronizar por SFTP
+        env:
+          UMU_HOST: ${{ secrets.UMU_HOST }}
+          UMU_USER: ${{ secrets.UMU_USER }}
+          UMU_PASSWORD: ${{ secrets.UMU_PASSWORD }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y lftp
+          lftp -c "set sftp:auto-confirm yes; open -u $UMU_USER,$UMU_PASSWORD sftp://$UMU_HOST; mirror -R ./ ./ --exclude .git/ --exclude .github/ --parallel=2"
