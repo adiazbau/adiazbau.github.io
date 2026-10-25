@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Guía Interactiva de Derecho Romano | Universidad de Murcia</title>
     <meta name="description" content="Guía interactiva de Derecho Romano para estudiantes de la Universidad de Murcia, con un diseño moderno, herramientas de IA, infografías detalladas y casos prácticos.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -29,13 +29,13 @@
     <!-- Fuentes: preload correcto, sin truco media=print -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap">
-    
-    
+
+
     <style>
-      body { 
-    font-family: 'Lato', sans-serif; 
-    color: #334155; 
-    background-color: #fcfcfb; 
+      body {
+    font-family: 'Lato', sans-serif;
+    color: #334155;
+    background-color: #fcfcfb;
     font-size: 112.5%; /* 18px base — equivalente visual al antiguo zoom:1.25, compatible con todos los navegadores */
 }
         h1, h2, h3, .font-heading { font-family: 'Cormorant Garamond', serif; }
@@ -55,7 +55,7 @@
         /* -- Estilos de infografías: ver bloque unificado más abajo -- */
         .error-box { background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 0.5rem; padding: 1rem; margin-top: 0.5rem; }
         .error-box p { color: #991b1b; margin: 0; }
-        
+
         /* Estilos del Mapa Mental (Estilo Imagen) */
         .mapa-mental-container {
             width: 100%;
@@ -78,7 +78,7 @@
         .d3-node {
             cursor: pointer;
         }
-        
+
         /* Estilo para los rectángulos (píldoras) */
         .node-rect {
             stroke: #cbd5e1; /* slate-300 */
@@ -127,12 +127,12 @@
 .loader-infografia {
     animation: spin 1s linear infinite;
 }
-/* No es necesario @keyframes spin, ya lo tienes definido */   
+/* No es necesario @keyframes spin, ya lo tienes definido */
 
 /* ... (tus estilos acaban aquí) ... */
 
         /* INICIO DEL CÓDIGO CSS UNIFICADO (v9.0 + Casos) */
-        
+
         /* -- Estilos Generales para Desplegables Principales -- */
         details.infografia-container summary {
             padding: 1rem 1.25rem;
@@ -149,7 +149,7 @@
             border-radius: 0.75rem;
             margin-top: 1.5rem;
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            transition: all 0.2s ease-in-out; 
+            transition: all 0.2s ease-in-out;
         }
         details.infografia-container summary:hover {
             background-color: #f8fafc; /* Un poco más claro al hover */
@@ -162,24 +162,24 @@
             border-bottom-color: transparent;
         }
         details.infografia-container summary::-webkit-details-marker { display: none; }
-        
+
         /* Contenido anidado con "sangría" visual */
         details.infografia-container .infografia-content {
             padding: 1.5rem;
             border: 1px solid #e2e8f0;
-            border-top: none; 
+            border-top: none;
             background-color: #ffffff; /* Fondo claro para el contenido */
             border-bottom-left-radius: 0.75rem;
             border-bottom-right-radius: 0.75rem;
         }
-        
+
         /* Rotación suave de la flecha */
-        .infografia-arrow { 
-            transition: transform 0.2s ease-in-out; 
-            color: #64748b; 
+        .infografia-arrow {
+            transition: transform 0.2s ease-in-out;
+            color: #64748b;
         }
-        details.infografia-container[open] .infografia-arrow { 
-            transform: rotate(180deg); 
+        details.infografia-container[open] .infografia-arrow {
+            transform: rotate(180deg);
             color: #475569;
         }
 
@@ -197,8 +197,8 @@
         .esquema-guion-v9 h3 { /* Título del Capítulo */
             font-family: 'Inter', sans-serif;
             font-weight: 700;
-            font-size: 1.5rem; 
-            color: #334155; 
+            font-size: 1.5rem;
+            color: #334155;
             margin: 0 0 1.5rem 0;
             border-bottom: 2px solid #cbd5e1;
             padding-bottom: 0.5rem;
@@ -206,10 +206,10 @@
         .guion-l1-v9 { /* Nivel 1: Epígrafe */
             font-family: 'Inter', sans-serif;
             font-weight: 600;
-            font-size: 1.3rem; 
-            color: #1e3a8a; 
-            margin-top: 2rem; 
-            border-bottom: 1px dashed #d1d5db; 
+            font-size: 1.3rem;
+            color: #1e3a8a;
+            margin-top: 2rem;
+            border-bottom: 1px dashed #d1d5db;
             padding-bottom: 0.25rem;
         }
         .guion-l1-v9:first-of-type {
@@ -218,34 +218,34 @@
         .guion-l2-v9 { /* Nivel 2: Sub-punto */
             font-family: 'Inter', sans-serif;
             font-weight: 600;
-            font-size: 1.1rem; 
+            font-size: 1.1rem;
             color: #334155;
-            margin-left: 1rem; 
-            margin-top: 1.5rem; 
+            margin-left: 1rem;
+            margin-top: 1.5rem;
             margin-bottom: 0.75rem;
         }
         .guion-l3-v9 { /* Nivel 3: Detalle */
             font-size: 1rem;
             color: #475569;
-            margin-left: 2.5rem; 
-            margin-bottom: 0.75rem; 
-            border-left: 3px solid #60a5fa; 
+            margin-left: 2.5rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid #60a5fa;
             padding-left: 0.75rem;
         }
         .guion-l4-v9 { /* Nivel 4: Ejemplo/Nota */
             font-size: 0.95rem;
-            color: #57534e; 
-            margin-left: 4.5rem; 
-            margin-bottom: 0.5rem; 
+            color: #57534e;
+            margin-left: 4.5rem;
+            margin-bottom: 0.5rem;
             font-style: italic;
             border-left: 2px dashed #a8a29e;
             padding-left: 0.75rem;
         }
-        .esquema-guion-v9 strong { 
+        .esquema-guion-v9 strong {
              font-weight: 700;
              color: #475569;
         }
-        .esquema-guion-v9 em { 
+        .esquema-guion-v9 em {
             font-style: italic;
             color: #1d4ed8;
         }
@@ -257,7 +257,7 @@
             margin-top: 1.5rem;
             background-color: #ffffff;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-            transition: all 0.2s ease-in-out; 
+            transition: all 0.2s ease-in-out;
         }
         details.caso-flashcard[open] {
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07);
@@ -265,13 +265,13 @@
         details.caso-flashcard summary {
             padding: 1.5rem;
             cursor: pointer;
-            display: block; 
+            display: block;
         }
         details.caso-flashcard summary::-webkit-details-marker { display: none; }
         details.caso-flashcard .flashcard-problema h4 {
             font-family: 'Inter', sans-serif;
             font-weight: 600;
-            color: #334155; 
+            color: #334155;
             font-size: 1.25rem;
             margin: 0 0 1rem 0;
         }
@@ -284,7 +284,7 @@
         }
         details.caso-flashcard .flashcard-problema .ver-solucion-btn {
             display: inline-block;
-            background-color: #64748b; 
+            background-color: #64748b;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
@@ -295,7 +295,7 @@
             transition: background-color 0.2s;
         }
         details.caso-flashcard summary:hover .ver-solucion-btn {
-            background-color: #64748b; 
+            background-color: #64748b;
         }
         .flashcard-solucion {
             padding: 1.5rem;
@@ -338,7 +338,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             border: 2px solid;
-            min-width: 50px; 
+            min-width: 50px;
             text-align: center;
             background-color: #fff;
             z-index: 2;
@@ -347,7 +347,7 @@
             display: block;
             font-size: 0.75rem;
             font-weight: 700;
-            color: #475569; 
+            color: #475569;
             margin-top: 2px;
         }
         .arbol-grafico .linea-v { width: 2px; background-color: #cbd5e1; flex-grow: 1; min-height: 20px; }
@@ -360,9 +360,9 @@
         .persona.excluido { border-color: #d1d5db; color: #6b7280; background-color: #f9fafb; text-decoration: line-through; }
         .persona.agnado { border-color: #3b82f6; color: #1d4ed8; background-color: #eff6ff; }
         .persona.premuerto { border-color: #9ca3af; color: #4b5563; background-color: #f3f4f6; font-style: italic; }
-        
+
         /* FIN DEL CÓDIGO CSS UNIFICADO */
-    
+
 /* Mejoras ligeras de interfaz para herramientas IA */
 .tool-notice { background: #fff7ed; border: 1px solid #fdba74; color: #334155; border-radius: 0.75rem; padding: 0.875rem 1rem; margin: 0 0 1rem 0; }
 .tool-notice strong { color: #7c2d12; }
@@ -669,9 +669,9 @@
     z-index: 46 !important;
   }
 }
-</style>  
-    
-     
+</style>
+
+
 
 </head>
 <body class="flex min-h-screen">
@@ -752,8 +752,8 @@
         // ========================================
         // FUNCIONES DE UTILIDAD Y SEGURIDAD
         // ========================================
-        
-        const API_BASE_URL = 'https://derechoromano-ecma.onrender.com';       
+
+        const API_BASE_URL = 'https://derechoromano-ecma.onrender.com';
 
         // Aviso silencioso al backend en cuanto carga la página, para
         // empezar a "despertarlo" (si estaba dormido por inactividad)
@@ -793,12 +793,12 @@
         // ========================================
         // COMUNICACIÓN CON EL SERVIDOR
         // ========================================
-        
+
         async function callApiAndHandleErrors(endpoint, payload, isRetry = false) {
             try {
                 const controller = new AbortController();
                 // Timeout de 500 segundos (margen amplio por el "cold start" del backend en Render)
-                const timeoutId = setTimeout(() => controller.abort(), 500000); 
+                const timeoutId = setTimeout(() => controller.abort(), 500000);
 
                 const response = await fetch(`${API_BASE_URL}/api/${endpoint}`, {
                     method: 'POST',
@@ -810,12 +810,12 @@
                 });
 
                 clearTimeout(timeoutId);
-                
-                if (!response.ok) { 
-                    const errorData = await response.json().catch(() => ({})); 
-                    return { error: errorData.message || "Error de comunicación con el servidor." }; 
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    return { error: errorData.message || "Error de comunicación con el servidor." };
                 }
-                
+
                 return await response.json();
 
             } catch (error) {
@@ -829,10 +829,10 @@
                     await new Promise(resolve => setTimeout(resolve, 4000));
                     return await callApiAndHandleErrors(endpoint, payload, true);
                 }
-                return { error: "No se ha podido establecer conexión con el servidor." }; 
+                return { error: "No se ha podido establecer conexión con el servidor." };
             }
         }
-        
+
         async function callGeminiAPI(tipo, termino = null, currentCaseText = null) {
             if (termino && termino.length > 100) return { error: "El término es demasiado largo (máximo 100 caracteres)." };
             // Se envía 'tipo' para lógica de servidor optimizada
@@ -842,7 +842,7 @@
         // ========================================
         // ELEMENTOS DOM Y VARIABLES GLOBALES
         // ========================================
-        
+
         const contentArea = document.getElementById('content-area');
         const sidebar = document.getElementById('sidebar');
         const menuButton = document.getElementById('menu-button');
@@ -919,33 +919,33 @@
                 nodosTexto.push(walker.currentNode);
             }
 
-            // Ordenamos los términos del más largo al más corto para evitar que 
+            // Ordenamos los términos del más largo al más corto para evitar que
             // palabras cortas rompan términos compuestos (ej. "ius" y "alieni iuris")
             const terminos = Object.keys(glosarioTerminos).sort((a, b) => b.length - a.length);
             const regexGlobal = new RegExp(`\\b(${terminos.join('|')})\\b`, 'gi');
 
             nodosTexto.forEach(nodo => {
                 // Evitamos aplicar esto dentro de botones, enlaces, scripts o tooltips ya creados
-                if (nodo.parentElement.tagName === 'SCRIPT' || 
-                    nodo.parentElement.tagName === 'STYLE' || 
-                    nodo.parentElement.tagName === 'A' || 
+                if (nodo.parentElement.tagName === 'SCRIPT' ||
+                    nodo.parentElement.tagName === 'STYLE' ||
+                    nodo.parentElement.tagName === 'A' ||
                     nodo.parentElement.tagName === 'BUTTON' ||
                     nodo.parentElement.classList.contains('glosario-tooltip')) {
                     return;
                 }
 
                 const textoOriginal = nodo.nodeValue;
-                
+
                 // Reemplazamos todos los términos en una sola pasada para no romper el HTML
                 const nuevoHTML = textoOriginal.replace(regexGlobal, (coincidencia) => {
                     const clave = coincidencia.toLowerCase();
                     const definicionBruta = glosarioTerminos[clave];
-                    
+
                     if (definicionBruta) {
                         // Borramos la etiqueta[cite: 2] y convertimos las comillas para no romper el código
                         const definicionLimpia = definicionBruta.replace('\\', '').replace('[cite: 2]', '').trim();
                         const definicionEscapada = definicionLimpia.replace(/"/g, '&quot;');
-                        
+
                         return `<span class="glosario-tooltip" data-tooltip="${definicionEscapada}">${coincidencia}</span>`;
                     }
                     return coincidencia;
@@ -965,7 +965,7 @@
        // ========================================
         // DATOS DEL MAPA MENTAL (ACTUALIZADO SEGÚN GUIONES)
         // ========================================
-        
+
         const mapaMentalData = {
             "name": "Derecho Romano · Manual 2026",
             "children": [
@@ -1354,7 +1354,7 @@
         // ========================================
         // CONTENIDO DE LAS PÁGINAS (MAPA DE CONTENIDO)
         // ========================================
-        
+
         const contentMap = {
             '#home': {
                 title: 'Presentación',
@@ -1371,7 +1371,7 @@
 '#bloque1': {
                 title: 'Bloque I: Fundamentos e Historia',
                 html: `<div class="prose"><p class="text-secondary">Este bloque introduce los conceptos más básicos para comprender el Derecho. Exploraremos la diferencia entre los distintos tipos de normas de conducta, la aportación fundamental de Roma al Derecho y su evolución histórica, así como su pervivencia hasta nuestros días.</p></div>
-                
+
                 <details class="infografia-container">
                     <summary>
                         <span>📊 Infografías</span>
@@ -1393,7 +1393,7 @@
                         <div class="space-y-4">
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">Ideas fundamentales</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/28eMBlnlBHmXjMy9z36wZU?si=4-94QDMNT0WZysG-Wp6IcA" target="_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">Historia del Derecho Romano</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/7ljMLe9uPQfzzIMYxvwXNG?si=QtLBeHgARfaRU9wxQiWEmQ"_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
-                          
+
                     </div>
                 </details>
 
@@ -1404,9 +1404,9 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>1. IDEAS FUNDAMENTALES ACERCA DEL DERECHO</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">1.1 El Derecho como Norma de Conducta</div>
                                 <div class="guion-l2-v9">Convivencia social: <em>Ubi societas, ibi ius</em></div>
@@ -1415,7 +1415,7 @@
                                     <div class="guion-l3-v9">Característica clave: <strong>Coercibilidad</strong></div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">1.2 La Aportación Singular de Roma: La Laicización del <em>Ius</em></div>
                                 <div class="guion-l2-v9">Separación conceptual:
@@ -1426,7 +1426,7 @@
                                 <div class="guion-l2-v9">Nacimiento de la Ciencia Jurídica y del <strong>Jurista</strong>.</div>
                                 <div class="guion-l2-v9">Preceptos de Ulpiano: <em>Honeste vivere, alterum non laedere, suum cuique tribuere</em>.</div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">1.3 Clasificaciones Fundamentales del Derecho</div>
                                 <div class="guion-l2-v9">Derecho Objetivo (<em>Law</em>) vs. derecho subjetivo (<em>Right</em>)</div>
@@ -1435,7 +1435,7 @@
                             </div>
 
                             <h3>2. LA FORMACIÓN DEL DERECHO CONTINENTAL</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">2.1 La Fundación y la Época Arcaica</div>
                                 <div class="guion-l2-v9">Monarquía: <em>Mores Maiorum</em> y <em>Ius Quiritium</em> (rígido, formalista).</div>
@@ -1445,7 +1445,7 @@
                                     <div class="guion-l3-v9">Consagra la <strong>seguridad jurídica</strong>.</div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">2.2 La República</div>
                                 <div class="guion-l2-v9">Equilibrio de poderes: Magistraturas, Senado, Comicios.</div>
@@ -1507,7 +1507,7 @@
             },     '#bloque2': {
                 title: 'Bloque II: Sujetos de Derecho',
                 html: `<div class="prose"><p class="text-secondary">Este bloque se centra en quiénes son los protagonistas del Derecho. Analizaremos los requisitos para ser persona en Roma, la estructura de la familia y los poderes que ostentaba el paterfamilias.</p></div>
-                
+
                 <details class="infografia-container">
                     <summary>
                         <span>📊 Infografías</span>
@@ -1527,7 +1527,7 @@
                     <div class="infografia-content">
                         <div class="space-y-4">
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">El sujeto del derecho y la familia romana</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/0QQFKZ4HFKjK76bnTYlpDQ?si=iDyo_jWPRgCUpKl5WAm25Q" target="_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
-                           
+
                     </div>
                 </details>
 
@@ -1538,15 +1538,15 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>3. EL SUJETO DE DERECHO. PERSONA Y CAPACIDAD.</h3>
-                            
+
                             <div class_l1_v9>
                                 <div class="guion-l1-v9">3.1 Introducción: Persona y Sujeto de Derecho</div>
                                 <div class="guion-l2-v9">Concepto clave: "Persona" no es igual a "Sujeto de Derecho".</div>
                                 <div class="guion-l2-v9">El esclavo (<em>servus</em>) era persona, pero jurídicamente era un objeto (<em>res</em>).</div>
                             </div>
-                            
+
                             <div class_l1_v9>
                                 <div class="guion-l1-v9">3.2 Los Tres Status y la Capitis Deminutio</div>
                                 <div class="guion-l2-v9"><strong>Los Tria Status</strong> (Requisitos para Capacidad Jurídica Plena)
@@ -1622,7 +1622,7 @@
                             </div>
 
                             <h3>4. LA FAMILIA ROMANA</h3>
-                            
+
                             <div class_l1_v9>
                                 <div class="guion-l1-v9">4.1 Concepto de Familia y Parentesco</div>
                                 <div class="guion-l2-v9">Familia basada en el <strong>poder (potestas)</strong>, no en la sangre.</div>
@@ -1638,14 +1638,14 @@
                                     <div class="guion-l3-v9">Nacimiento en justas nupcias.</div>
                                     <div class="guion-l3-v9"><strong>Adrogación (<em>Adrogatio</em>):</strong> Adopción de un <em>sui iuris</em> (otro <em>pater</em>).</li>
                                     <div class="guion-l3-v9"><strong>Adopción (<em>Adoptio</em>):</strong> Adopción de un <em>alieni iuris</em>.</li>
-			
+
                                 </div>
                                 <div class="guion-l2-v9"><strong>Extinción:</strong>
                                     <div class="guion-l3-v9">Muerte del <em>paterfamilias</em>.</div>
                                     <div class="guion-l3-v9"><em>Capitis Deminutio</em> del <em>pater</em>.</div>
                                     <div class="guion-l3-v9"><strong>Emancipación (<em>Emancipatio</em>):</strong> El <em>pater</em> libera voluntariamente al hijo.</div>
                                 </div>
- 
+
                             </div>
  <div class="guion-l2-v9"><strong>Peculio</strong>
                             <div class_l1_v9>
@@ -1686,7 +1686,7 @@
          '#bloque3': {
                 title: 'Bloque III: Negocio Jurídico',
                 html: `<div class="prose"><p class="text-secondary">Este bloque es crucial para la comprensión de los actos voluntarios con efectos jurídicos. Analizaremos los elementos esenciales y accidentales de los negocios jurídicos y las causas que pueden llevar a su ineficacia.</p></div>
-                
+
                 <details class="infografia-container">
                     <summary>
                         <span>📊 Infografías</span>
@@ -1716,9 +1716,9 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>5. HECHOS, ACTOS Y NEGOCIO JURÍDICO</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">5.1 Hechos Jurídicos y Actos Jurídicos</div>
                                 <div class="guion-l2-v9"><strong>Hecho Jurídico:</strong> Acontecimiento (natural o humano) al que el Derecho atribuye efectos.</div>
@@ -1727,7 +1727,7 @@
                                     <div class="guion-l3-v9"><em>Lícitos:</em> Conformes al Derecho (ej. aceptar una herencia).</div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">5.2 El Negocio Jurídico: Concepto y Clases</div>
                                 <div class="guion-l2-v9"><strong>Concepto:</strong> Declaración de voluntad de un particular dirigida a un fin práctico, a la que el Derecho dota de efectos.</div>
@@ -1814,7 +1814,7 @@
     '#bloque4': {
                 title: 'Bloque IV: El Proceso',
                 html: `<div class="prose"><p class="text-secondary">En este bloque se analiza la defensa de los derechos, centrada en los mecanismos judiciales que permitían a los ciudadanos romanos resolver sus conflictos.</p></div>
-                
+
                 <details class="infografia-container">
                     <summary>
                         <span>📊 Infografías</span>
@@ -1843,7 +1843,7 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>6. EL PROCESO. GENERALIDADES (LAS ACCIONES DE LEY)</h3>
 
                             <div>
@@ -1854,7 +1854,7 @@
                                     <div class="guion-l3-v9"><strong>Sentido material:</strong> El propio derecho subjetivo que se reclama.</div>
                                     <div class="guion-l3-v9">Principio romano: Se tiene un derecho si se tiene una acción que lo proteja.</div>
                                 </div>
-                               
+
 
                             <div>
                                 <div class="guion-l1-v9">6.2 Presupuestos Procesales: Capacidad y Legitimación</div>
@@ -1934,7 +1934,7 @@
                             </div>
                             <div>
 <br><br>
-         
+
                                 <div class="guion-l1-v9">7.2 El Concepto de "Fórmula"</div>
                                 <div class="guion-l2-v9">Instrucción escrita que el Pretor enviaba al Juez, ordenándole condenar o absolver según se probaran ciertos hechos.</div>
                             </div>
@@ -1942,7 +1942,7 @@
 
                             <div>
 <br><br>
-         
+
                                 <div class="guion-l1-v9">7.4 La Fase <em>In Iure</em></div>
                                 <div class="guion-l2-v9"><strong>Citación (<em>In Ius Vocatio</em>):</strong> Acto privado del demandante. Asegurado con <strong><em>Vadimonium</em></strong> (promesa de comparecer).</div>
                                 <div class="guion-l2-v9"><strong>Representación Procesal:</strong>
@@ -1959,13 +1959,13 @@
                             <div>
                                <div>
 <br><br>
-         
+
                                 <div class="guion-l1-v9">7.7 La Fórmula y sus Partes</div>
                                 <div class="guion-l2-v9"><strong>Partes Principales (Ordinarias):</strong>
                                     <div class="guion-l3-v9"><strong><em>Intentio:</em></strong> Parte clave. La base de la pretensión del demandante.</div>
                                     <div class="guion-l3-v9"><strong><em>Condemnatio:</em></strong> Contiene la pretensión del demandante. <strong>¡Siempre pecuniaria!</strong>
                                         <div class="guion-l4-v9"><em>Cláusula Arbitraria:</em> Para permitir la restitución de la cosa y evitar la condena en dinero.</div>
-                                    
+
                                         <div class="guion-l4-v9"><em>El actor podía perder el juicio por plurispetitio.</em></div>
                                     </div>
 
@@ -1985,7 +1985,7 @@
                                 <div class="guion-l2-v9">De <em>Derecho Estricto</em> vs. De <em>Buena Fe</em> (el juez tiene más arbitrio).</div>
                             </div>
 <br><br>
-                            
+
                             <h3>8. EL PROCESO FORMULARIO (FASE <em>APUD IUDICEM</em> Y EJECUCIÓN)</h3>
                             <div>
                                 <div class="guion-l1-v9">8.1 La <em>Litis Contestatio</em></div>
@@ -2019,10 +2019,10 @@
                                 <div class="guion-l2-v9"><strong>Protección vs Fraude:</strong> <em>Interdicto Fraudatorio</em> (base de la Acción Pauliana).</div>
                                 <div class="guion-l1-v9"><em><strong>8.5 Cessio bonorum.</em></div>
   <div class="guion-l1-v9"><strong>8.6 Protección pretoria extrajudicial.</div>
- <div class="guion-l2-v9"><strong> Cauciones. </div> 
- <div class="guion-l2-v9"><strong> Embargos. </div>  
- <div class="guion-l2-v9"><strong> Interdictos. </div>       
- <div class="guion-l2-v9"><strong> Restitutio in integrum. </div>                                          
+ <div class="guion-l2-v9"><strong> Cauciones. </div>
+ <div class="guion-l2-v9"><strong> Embargos. </div>
+ <div class="guion-l2-v9"><strong> Interdictos. </div>
+ <div class="guion-l2-v9"><strong> Restitutio in integrum. </div>
   </div>
 <br><br>
                             <h3>9. LA <em>COGNITIO EXTRA ORDINEM</em> Y LA PROTECCIÓN PRETORIA</h3>
@@ -2041,7 +2041,7 @@
                                 <div class="guion-l2-v9"><strong>Ejecución Singular:</strong> Se abandona la <em>Bonorum Venditio</em>. Se embargan bienes concretos (<em>pignus in causa iudicati captum</em>).</div>
                             </div>
                             <div>
-                             
+
                             <div>
                                 <div class="guion-l1-v9">9.2 Procedimientos Arbitrales</div>
                                 <div class="guion-l2-v9"><strong><em>Compromissum:</em></strong> Acuerdo privado para someter el litigio a un <strong>árbitro</strong> (tercero de confianza).</div>
@@ -2059,7 +2059,7 @@
          '#bloque5': {
                 title: 'Bloque V: Derechos Reales',
                 html: `<div class="prose"><p class="text-secondary">Este bloque introduce los derechos que se ejercen directamente sobre las cosas, comenzando por el derecho de propiedad, la distinción con la posesión y los demás derechos reales limitados (servidumbres, usufructo, etc.).</p></div>
-                
+
               <details class="infografia-container">
     <summary><span>📊 Infografías: Propiedad y Derechos Reales</span><svg class="w-6 h-6 infografia-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></summary>
     <div class="infografia-content">
@@ -2117,7 +2117,7 @@
                     <div class="infografia-content">
                         <div class="space-y-4">
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">Derechos Reales</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/3THSEXRF9UVEMn9pAs8m27?si=UTX1vlySQfWKYJOJ-UxexA" target="_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
-                           
+
                     </div>
                 </details>
 
@@ -2128,9 +2128,9 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>10. INTRODUCCIÓN A LOS DERECHOS REALES. COSAS. POSESIÓN.</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">10.1 Los Derechos Reales y las Cosas</div>
                                 <div class="guion-l2-v9"><strong>10.1.1 Las Cosas (<em>Res</em>)</strong>
@@ -2150,7 +2150,7 @@
                                     <div class="guion-l3-v9"><em>Disposición (Habere):</em> Alterar física o jurídicamente la cosa.</div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">10.2 Posesión y Propiedad</div>
                                 <div class="guion-l2-v9"><strong>Propiedad (Dominio):</strong> Es el <strong>derecho</strong> jurídico.</div>
@@ -2184,13 +2184,13 @@
                             </div>
 
                             <h3>11. LA PROPIEDAD</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">11.1 Concepto y Tipos de Propiedad</div>
                                 <div class="guion-l2-v9"><strong><em>Dominium ex iure Quiritium</em> (Propiedad Civil):</strong> La única "verdadera" propiedad.</div>
                                 <div class="guion-l2-v9"><strong>Propiedad Pretoria (Bonitaria):</strong> Situación de hecho protegida por el Pretor (Ver Tema 14).</div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">11.3 Modos de Adquirir la Propiedad</div>
                                 <div class="guion-l2-v9"><strong>Originarios</strong> (sin titular anterior) vs. <strong>Derivativos</strong> (se adquiere de otro).</div>
@@ -2209,7 +2209,7 @@
                                     <div class="guion-l3-v9">Requisitos: Entrega + Propietario + <strong>Justa Causa</strong> (ej. <em>emere</em> -comprar-, <em>donare</em> -donar-).</div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">11.4 La Copropiedad (Condominio)</div>
                                 <div class="guion-l2-v9">Copropiedad romana: Por <strong>cuotas ideales</strong> (cada comunero es dueño de una parte abstracta).</div>
@@ -2228,23 +2228,28 @@
                                     <div class="guion-l3-v9">Indivisibilidad. Utilidad Permanente.</div>
                                 </div>
                                 <div class="guion-l2-v9"><strong>12.1.2 Clases de Servidumbres</strong>
-                                    <div class="guion-l3-v9"><strong>Rústicas (<em>Res Mancipi</em>):</strong> <em>De Paso</em> (Iter, Actus, Via), <em>De Aguas</em> (Aquaeductus).</div>
-                                    <div class="guion-l3-v9"><strong>Urbanas (<em>Res Nec Mancipi</em>):</strong> <em>De Luces y Vistas</em>, <em>De Desagüe</em>, <em>De Apoyo</em>.</div>
+ <div class="guion-l3-v9"><strong>Positivas/ negativas.</div>
+ <div class="guion-l3-v9"><strong>Continuas/ discontinuas.</div>
+ <div class="guion-l3-v9"><strong>Aparentes/ no aparentes.</div>
+                                    <div class="guion-l3-v9"><strong>Rústicas/ Urbanas.
                                 </div>
                                 <div class="guion-l2-v9"><strong>12.1.3 Constitución y Extinción</strong>
-                                    <div class="guion-l3-v9">Constitución: <em>In Iure Cessio</em>, Legado, <em>Deductio</em>, <em>Mancipatio</em> (solo rústicas).</div>
-                                    <div class="guion-l3-v9">Extinción: Confusión, Renuncia, <em>Non Usus</em>, <em>Usucapio Libertatis</em>.</div>
+                                    <div class="guion-l3-v9">Constitución: <em>In Iure Cessio</em>, Legado, <em>Deductio</em>, <em>Mancipatio</em> (solo rústicas), <em>Adiudicatio</em>, <em>pactiones</em>, Destino pater familias.</div>
+                                    <div class="guion-l3-v9">Extinción: Confusión, Renuncia, <em>Non Usus</em>, <em>Usucapio Libertatis</em>, Destrucción.</div>
+
                                 </div>
                             </div>
-                            
+
                             <div>
-                                <div class="guion-l1-v9">12.2 Servidumbres Personales</div>
+                                <div class="guion-l1-v9">12.2 Usufructo, uso, habtiación</div>
                                 <div class="guion-l2-v9"><strong>12.2.1 El Usufructo (<em>Ususfructus</em>)</strong>
                                     <div class="guion-l3-v9">Derecho a <strong>usar (<em>uti</em>) y disfrutar (<em>frui</em>)</strong> de una cosa ajena.</div>
                                     <div class="guion-l3-v9">Deber: <strong><em>Salva Rerum Substantia</em></strong> (no alterar la cosa).</div>
                                     <div class="guion-l3-v9">Garantía: <strong><em>Cautio Usufructuaria</em></strong>.</div>
                                     <div class="guion-l3-v9">Es <strong>personalísimo y vitalicio</strong> (se extingue con la muerte del usufructuario).</div>
                                     <div class="guion-l3-v9"><em>Cuasi-Usufructo:</em> Sobre cosas consumibles (ej. dinero).</div>
+<div class="guion-l2-v9">Constitución: Legado vindicatorio, <em>in iure cessio, deductio, pactiones</em></div>
+<div class="guion-l2-v9">Extinción: Muerte, consolidación, renuncia, no uso y destrucción.</div>
                                 </div>
                                 <div class="guion-l2-v9"><strong>12.2.2 Uso, Habitación y <em>Operae Servorum</em></strong></div>
                             </div>
@@ -2254,9 +2259,9 @@
                                 <div class="guion-l2-v9"><strong>Enfiteusis:</strong> Derecho a cultivar un fundo ajeno a perpetuidad a cambio de un <em>canon</em>.</div>
                                 <div class="guion-l2-v9"><strong>Superficie:</strong> Derecho a edificar en solar ajeno a cambio de un <em>canon</em> (rompe <em>superficies solo cedit</em>).</div>
                             </div>
-                            
+
                             <h3>13. PROTECCIÓN PROCESAL DE LOS DERECHOS REALES</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">Protección de la Propiedad Civil</div>
                                 <div class="guion-l2-v9"><strong>Acción Reivindicatoria (<em>Actio Reivindicatoria</em>)</strong>
@@ -2268,7 +2273,7 @@
                                     <div class="guion-l3-v9">Del <strong>propietario poseedor</strong> contra quien alega un derecho real (ej. servidumbre).</div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">Protección de Servidumbres y Usufructo</div>
                                 <div class="guion-l2-v9"><strong><em>Vindicatio Servitutis</em> (Acción Confesoria):</strong> Para proteger la servidumbre.</div>
@@ -2276,7 +2281,7 @@
                             </div>
 
                             <h3>14. LA PROPIEDAD PRETORIA</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">14.1 El Problema</div>
                                 <div class="guion-l2-v9">Adquirente de buena fe desprotegido por:
@@ -2316,7 +2321,7 @@
         '#bloque6': {
                 title: 'Bloque VI: Obligaciones y Contratos',
                 html: `<div class="prose"><p class="text-secondary">Este bloque aborda la esencia de las obligaciones, sus fuentes y su cumplimiento e incumplimiento. Además, analizaremos los principales tipos de contratos consensuales y reales.</p></div>
-                
+
                <details class="infografia-container">
     <summary><span>📊 Infografías: Obligaciones y Contratos</span><svg class="w-6 h-6 infografia-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></summary>
     <div class="infografia-content">
@@ -2373,7 +2378,7 @@
                     <div class="infografia-content">
                         <div class="space-y-4">
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">Obligaciones</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/6waB9v92U2TehCqygZ1ryN?si=Wkj8jlG2QmyEeGsFTbyOTw" target="_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
-                          
+
                     </div>
                 </details>
 
@@ -2384,7 +2389,7 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>15. LA RELACIÓN OBLIGACIONAL. INTRODUCCIÓN</h3>
                             <div>
                                 <div class="guion-l1-v9">15.1 Concepto y Elementos</div>
@@ -2571,14 +2576,14 @@
 '#bloque7': {
                 title: 'Bloque VII: Sucesiones',
                 html: `<div class="prose"><p class="text-secondary">El último bloque se centra en el Derecho de Sucesiones, la transmisión del patrimonio tras la muerte. Analizaremos las distintas formas de sucesión (testamentaria e intestada) y figuras como el legado y los fideicomisos.</p></div>
-                
+
               <details class="infografia-container">
     <summary>
         <span>📊 Infografías</span>
         <svg class="w-6 h-6 infografia-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
     </summary>
     <div class="infografia-content">
-        
+
         <details class="infografia-container" style="background-color: #fff; margin-top: 0;">
             <summary class="flex justify-between items-center" style="background-color: #fff; border: 1px solid #e5e7eb; margin-top:0;">
                 <span>Evolución de la Sucesión Intestada</span>
@@ -2644,7 +2649,7 @@
                     </header>
                     <main class="p-6">
                         <div class="relative border-l-4 border-purple-200 ml-4 space-y-8 pl-8">
-                            
+
                             <div class="relative">
                                 <div class="absolute -left-[38px] top-1 bg-purple-600 rounded-full w-5 h-5 border-4 border-white"></div>
                                 <h3 class="text-lg font-bold text-purple-900">1. Legítima Formal (Ius Civile)</h3>
@@ -2950,7 +2955,7 @@
                     <div class="infografia-content">
                         <div class="space-y-4">
                             <div class="topic-card" style="background-color: #fff; border-color: #e5e7eb;"><h4 class="text-xl font-semibold text-primary mb-2 font-heading">Sucesiones</h4><div class="topic-links flex flex-wrap gap-4"><a href="https://open.spotify.com/episode/4vigOxCOYssYDtAdNRwuKz?si=c-zhF658RViRNGQjz6n8ig" target="_blank" class="topic-link-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg><span>Escuchar Podcast</span></a></div></div>
-                            
+
                     </div>
                 </details>
 
@@ -2961,9 +2966,9 @@
                     </summary>
                     <div class="infografia-content">
                         <div class="esquema-guion-v9">
-                            
+
                             <h3>20. LA SUCESIÓN MORTIS CAUSA</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">20.1 Delación de la Herencia: Vías Sucesorias</div>
                                 <div class="guion-l2-v9"><strong>Delación:</strong> Llamamiento u ofrecimiento de la herencia.</div>
@@ -2985,7 +2990,7 @@
                                 </div>
                                 <div class="guion-l2-v9"><strong>Herencia Yacente:</strong> Periodo entre la delación y la adición.</div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">20.4 Efectos de la Adquisición de la Herencia</div>
                                 <div class="guion-l2-v9"><strong>Confusión de Patrimonios:</strong> El patrimonio del heredero y del causante se funden.</div>
@@ -3025,7 +3030,7 @@
                                     <div class="guion-l3-v9"><strong>3. <em>Gentiles</em>.</strong></div>
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">21.2 En el Derecho Pretorio (<em>Bonorum Possessio Sine Tabulis</em>)</div>
                                 <div class="guion-l2-v9">Sistema basado en el <strong>parentesco cognaticio (sangre)</strong>.</div>
@@ -3053,7 +3058,7 @@
                             </div>
 
                             <h3>22. SUCESIÓN TESTAMENTARIA Y SUCESIÓN FORZOSA</h3>
-                            
+
                             <div>
                                 <div class="guion-l1-v9">22.1 Sucesión Testamentaria</div>
                                 <div class="guion-l2-v9"><strong>Testamento:</strong> Acto solemne, personalísimo y unilateral. Esencialmente <strong>revocable</strong>.</div>
@@ -3077,7 +3082,7 @@
                                 <div class="guion-l2-v9">Límites a la libertad de testar para proteger a los parientes más próximos (legitimarios).</div>
                                 <div class="guion-l2-v9"><strong>Fase 1: Legítima Formal (Deber de Mencionar)</strong>
                                 <div class="guion-l2-v9"><strong>Fase 2: Legítima Material (Deber de Dejar Bienes)</strong>
-                           
+
                                 <div class="guion-l2-v9"><strong>Fase 3: Reforma de Justiniano </strong>
                                     <div class="guion-l3-v9">Establece <strong>causas tasadas</strong> de desheredación y aumenta la cuota.</div>
                             </div>
@@ -3089,15 +3094,15 @@
                 </details>
                 `
             },
-       
-            
+
+
             '#mapamental': {
                 title: 'Mapa Mental de la Asignatura',
                 html: `<div class="prose">
                           <h2 class="text-3xl font-bold text-secondary mb-4 !mt-0">Mapa Mental de la Asignatura</h2>
                           <p class="text-secondary">Aquí tienes una estructura conceptual adaptada al índice del manual de 2026. Haz clic en los nodos para expandir y contraer las ramas. Puedes arrastrar el mapa y usar la rueda del ratón para hacer zoom.</p>
                        </div>
-                       
+
                        <div id="mapa-mental-container" class="mapa-mental-container mt-6"></div>
                        `
             },
@@ -3113,12 +3118,12 @@
                         <li><span class="font-semibold">Castán Pérez-Gómez, S. e.a.</span>: Derecho privado romano, Reus, 2018.</li>
                         <li><span class="font-semibold">Panero Gutiérrez, R.</span>: Derecho Romano, Tirant, 2021.</li>
                     </ul>
-                    
+
                     <h3 class="text-2xl font-semibold text-secondary mt-8 mb-4">Enlaces de interés</h3>
                     <div class="not-prose space-y-3 max-w-xl mb-6">
-                        <a href="https://skiller.education/la-voz-del-experto-el-genial-laboratorio-de-casos-romanos-impulsado-con-inteligencia-artificial-desde-murcia/?srsltid=AfmBOop0r9R6BWB2xYpCZm7el8BD4jMxKar8gC3xbGIcA8FRB6uhvaHw" 
-                           target="_blank" 
-                           rel="noopener noreferrer" 
+                        <a href="https://skiller.education/la-voz-del-experto-el-genial-laboratorio-de-casos-romanos-impulsado-con-inteligencia-artificial-desde-murcia/?srsltid=AfmBOop0r9R6BWB2xYpCZm7el8BD4jMxKar8gC3xbGIcA8FRB6uhvaHw"
+                           target="_blank"
+                           rel="noopener noreferrer"
                            class="flex items-center gap-3 p-3 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors border border-purple-100 group">
                             <div class="p-2 bg-purple-600 text-white rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -3154,9 +3159,9 @@
             const page = contentMap[hash] || contentMap['#home'];
             document.title = `${page.title} | Guía Interactiva de Derecho Romano`;
             contentArea.innerHTML = page.html;
-           
+
             aplicarGlosario(); // <-- Esta es la línea nueva que activa el glosario
-            
+
             document.querySelectorAll('.sidebar-link').forEach(link => {
                 link.classList.remove('sidebar-link-active');
             });
@@ -3230,20 +3235,20 @@
                 }
             });
         }
-        
+
         // Función D3 para el Mapa Mental (Estilo Píldora)
         function initMapaMental() {
             const container = document.getElementById('mapa-mental-container');
             if (!container) return;
 
-            container.innerHTML = ''; 
+            container.innerHTML = '';
 
             const width = container.clientWidth;
             const height = container.clientHeight;
             const margin = { top: 20, right: 150, bottom: 20, left: 150 };
 
             // *** CORRECCIÓN: Definir nodeHeight y nodeWidth ANTES de usarlos ***
-            const nodeWidth = 220; 
+            const nodeWidth = 220;
             const nodeHeight = 28;
             const duration = 750;
             let i = 0;
@@ -3274,7 +3279,7 @@
             // *** CORRECCIÓN: 'i', 'duration', 'nodeWidth' y 'nodeHeight' ya están definidos arriba, no se repiten ***
             // let i = 0;
             // const duration = 750;
-            // const nodeWidth = 220; 
+            // const nodeWidth = 220;
             // const nodeHeight = 28;
 
             function update(source) {
@@ -3325,7 +3330,7 @@
                     .duration(duration)
                     .attr("transform", d => `translate(${d.y},${d.x})`)
                     .style("opacity", 1);
-                
+
                 nodeUpdate.select(".node-chevron")
                     .style("visibility", d => d._children ? 'visible' : 'hidden');
 
@@ -3383,17 +3388,17 @@
                     d.children = null;
                 }
             }
-            
+
             root.x0 = (height - margin.top - margin.bottom) / 2;
             root.y0 = 0;
 
             update(root);
-            
+
             svg.call(d3.zoom().transform, d3.zoomIdentity.translate(margin.left, (height - margin.top - margin.bottom) / 2).scale(0.45)); // CAMBIO: Zoom inicial más pequeño
         }
 
 
-        
+
         function initExampleChips() {
             document.querySelectorAll('.example-chips').forEach(group => {
                 const targetId = group.getAttribute('data-target-input');
@@ -3442,7 +3447,7 @@
             const queryResultText = document.getElementById('queryResultText');
             const submitBtnText = document.getElementById('submit-btn-text');
             const submitBtnLoader = document.getElementById('submit-btn-loader');
-            
+
             initExampleChips();
             checkServerStatus('ulpiano-status');
 
@@ -3450,7 +3455,7 @@
                 const userQuery = queryInput.value.trim();
                 queryResult.classList.remove('hidden');
                 queryResultText.innerHTML = '';
-                
+
                 if (userQuery === "") {
                     showError(queryResultText, "Por favor, introduce tu pregunta.");
                     return;
@@ -3480,7 +3485,7 @@
                                         <p><strong>5. Tempus:</strong> Plazo legal (XII Tablas: 1 año muebles, 2 inmuebles; Justiniano amplía los plazos).</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="bg-slate-50 p-3 rounded border border-slate-100 text-sm">
                                     <p class="font-bold text-slate-800 mb-1"><strong>Vigencia en el Derecho Moderno:</strong></p>
                                     <p class="text-slate-600">Equivale a la prescripción adquisitiva del Código Civil actual (Arts. 1930 y ss.), aunque con plazos mucho más largos.</p>
@@ -3500,7 +3505,7 @@
                     return; // Detiene la función para que no realice el fetch real
                 }
                 // =========================================================================
-                
+
                 // COMPORTAMIENTO ORIGINAL (Para cualquier otra consulta normal que te pida el tribunal)
                 showLoading(queryResultText, 'UlpianoIA está consultando las fuentes clásicas...');
 
@@ -3517,15 +3522,15 @@
                 } else {
                     let resultadoFinal = [];
                     resultadoFinal.push(`**Respuesta Jurídica:**\n${result.respuesta || 'No se pudo obtener la respuesta.'}`);
-                    
+
                     if (result.moderno) {
                         resultadoFinal.push(`**Vigencia en el Derecho Moderno:**\n${result.moderno}`);
                     }
-                    
+
                     if (result.pagina && result.titulo) {
                         resultadoFinal.push(`**Para saber más:**\nPuedes consultar el tema "${result.titulo}" en la página ${result.pagina} del manual.`);
                     }
-                    
+
                     const textoFinal = resultadoFinal.join('\n\n');
                     queryResultText.innerHTML = sanitizeHTML(textoFinal).replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 }
@@ -3541,7 +3546,7 @@
             const btnLoader = document.getElementById('btn-loader');
             const solveBtnText = document.getElementById('solve-btn-text');
             const solveBtnLoader = document.getElementById('solve-btn-loader');
-            
+
             let currentCaseText = '';
 
         initExampleChips();
@@ -3552,7 +3557,7 @@
         solveBtn.classList.add('hidden');
         solutionResult.classList.add('hidden');
         caseResult.innerHTML = '';
-        
+
         if (termino === "") {
             showError(caseResult, "Por favor, introduce el concepto para generar el caso.");
             return;
@@ -3564,29 +3569,29 @@
         if (textoNormalizado === "usucapion") {
             // SIMULACIÓN DE TRUCO: PASO 1 (GENERAR CASO)
             showLoading(caseResult, `Generando un caso de estudio sobre **${termino}**...`);
-            
+
             // Un pequeño retardo artificial (1.2 segundos) para darle realismo ante la comisión
             setTimeout(() => {
                 currentCaseText = "A la muerte de Ticio le sucede Cayo, su único hijo, que se hace cargo de todos los bienes de la herencia. Entre ellos se encuentra el esclavo Estico, que Cayo vende a Sempronio por 1.000 sestercios. Al cabo de 15 meses, Mevio demanda a Sempronio con la actio reivindicatoria exigiendo la devolución del esclavo afirmando que Estico nunca fue propiedad de Ticio, ni por tanto lo heredó Cayo, sino que perteneció siempre a Mevio. ¿Qué puede alegar Sempronio en su defensa?";
-                
+
                 caseResult.innerHTML = `<div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded">` +
                                        sanitizeHTML(currentCaseText).replace(/\n/g, '<br>') +
                                        `</div>`;
                 solveBtn.classList.remove('hidden');
-                
+
                 // Forzar que el cargador del botón de generar se desactive si se hubiera quedado colgado
                 if (typeof btnLoader !== 'undefined' && btnText) {
                     btnLoader.classList.add('hidden');
-                    btnText.textContent = "Generar Caso"; 
+                    btnText.textContent = "Generar Caso";
                 }
             }, 1200);
-            
+
             return; // Cortocircuita la llamada real a la API de Gemini
         }
 
         // COMPORTAMIENTO ORIGINAL DE GENERACIÓN (Cualquier otro concepto que introduzca el tribunal)
         showLoading(caseResult, `Generando un caso de estudio sobre **${termino}**...`);
-        
+
         const result = await handleButtonLoading(
             generateBtn, btnLoader, btnText,
             async () => {
@@ -3620,13 +3625,13 @@
                 const respuestaTruco = "Sempronio adquirió el esclavo Estico de buena fe y lo ha poseído como dueño durante el plazo establecido en Derecho clásico para la usucapión de bienes muebles (1 año). Por tanto, frente a la reclamación de Mevio, Sempronio puede oponer la exceptio dominii pues es propietario civil por usucapión.<br><br>" +
                                        "<strong>Fuente:</strong><br>" +
                                        "<em>Dig. 41.3.3 Modestinus 8 diff.</em> Usucapio est adiectio dominii per continuationem possessionis temporis lege definiti.<br>" ;
-                
-                solutionResult.innerHTML = `<h3 class="text-xl font-semibold mb-2 text-green-700">Solución Jurídica (UlpianoIA):</h3>` + 
+
+                solutionResult.innerHTML = `<h3 class="text-xl font-semibold mb-2 text-green-700">Solución Jurídica (UlpianoIA):</h3>` +
                                            `<div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded text-slate-700">` +
                                            respuestaTruco +
                                            `</div>`;
             }, 1200);
-            
+
             return; // Cortocircuita la resolución real de la API
         }
 
@@ -3641,7 +3646,7 @@
         if (result.error) {
             showError(solutionResult, result.error);
         } else {
-            solutionResult.innerHTML = `<h3 class="text-xl font-semibold mb-2 text-green-700">Solución Jurídica (UlpianoIA):</h3>` + 
+            solutionResult.innerHTML = `<h3 class="text-xl font-semibold mb-2 text-green-700">Solución Jurídica (UlpianoIA):</h3>` +
                                        sanitizeHTML(result.respuesta || 'No se pudo generar la solución.').replace(/\n/g, '<br>');
         }
     });
@@ -3649,7 +3654,7 @@
         // ========================================
         // INICIALIZACIÓN GLOBAL
         // ========================================
-        
+
         menuButton.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
         window.addEventListener('hashchange', handleHashChange);
@@ -3776,7 +3781,7 @@ const openModal_familia = () => {
     modalOutput_familia.classList.add('hidden');
     modalError_familia.classList.add('hidden');
     modalOutput_familia.innerHTML = '';
-    
+
     modalContainer_familia.classList.remove('hidden');
     setTimeout(() => {
         modalOverlay_familia.classList.remove('opacity-0');
@@ -3803,10 +3808,10 @@ async function handleCalculate_familia() {
     const person1Input_familia = document.getElementById('person-1-familia');
     const person2Input_familia = document.getElementById('person-2-familia');
 
-    openModal_familia(); 
+    openModal_familia();
 
-    if (!person2Input_familia || !person1Input_familia) return; 
-    
+    if (!person2Input_familia || !person1Input_familia) return;
+
     const person1 = person1Input_familia.value.trim();
     const person2 = person2Input_familia.value.trim();
 
@@ -3825,7 +3830,7 @@ async function handleCalculate_familia() {
         if (data.error) {
              throw new Error(data.error);
         }
-        
+
         // El servidor nos devuelve el JSON (linea, grado, explicacion)
         displayResults_familia(data);
 
@@ -3838,7 +3843,7 @@ async function handleCalculate_familia() {
 function displayResults_familia(data) {
     const modalSpinner_familia = document.getElementById('modal-spinner-familia');
     const modalOutput_familia = document.getElementById('modal-output-familia');
-    
+
     modalOutput_familia.innerHTML = `
         <ul class="space-y-3 text-lg text-slate-700">
             <li class="flex items-start">
@@ -3863,7 +3868,7 @@ function showModalError_familia(message) {
     const modalSpinner_familia = document.getElementById('modal-spinner-familia');
     const modalError_familia = document.getElementById('modal-error-familia');
     const modalErrorText_familia = document.getElementById('modal-error-text-familia');
-    
+
     modalSpinner_familia.classList.add('hidden');
     modalSpinner_familia.classList.remove('flex');
     if (modalErrorText_familia) modalErrorText_familia.textContent = message;
