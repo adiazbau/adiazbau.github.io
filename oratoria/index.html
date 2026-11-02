@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oratoria y Casuismo Jurídico | Universidad de Murcia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #002B5C; /* Azul Académico */
+            --accent-color: #C5A059; /* Dorado */
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ESTILOS PARA PROYECCIÓN EN CLASE */
+        .projection-text {
+            font-size: 1.35rem;
+            line-height: 1.8;   
+            color: #2c3e50;
+        }
+        
+        .projection-text h2 {
+            margin-top: 3rem;
+            font-size: 2.5rem;
+            border-bottom: 4px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .projection-text h4 {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        .projection-text h5 {
+            font-weight: bold;
+            margin-top: 1.5rem;
+            color: #444;
+            font-size: 1.5rem;
+        }
+
+        .projection-text li {
+            margin-bottom: 1.2rem;
+        }
+
+        .theory-card {
+            background: white;
+            padding: 3rem !important;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .quote-box {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #555;
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-left: 5px solid var(--primary-color);
+            margin: 2rem 0;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a4a80 100%);
+            color: white;
+            padding: 4rem 0;
+            border-bottom: 6px solid var(--accent-color);
+        }
+
+        /* Navegación */
+        .nav-tabs { border-bottom: 3px solid var(--primary-color); }
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 1.2rem 2rem;
+        }
+        .nav-tabs .nav-link.active {
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+        
+        footer a { color: var(--accent-color); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header class="text-center shadow">
+        <div class="container">
+            <h1 class="display-3 fw-bold">Oratoria y Casuismo Jurídico</h1>
+            <p class="lead mb-0 fs-3">Curso Académico | Universidad de Murcia</p>
+            <div class="mt-4">
+                <span class="badge bg-white text-primary p-3 fs-5 border border-primary">
+                    <i class="fas fa-chalkboard-teacher"></i> 
+                    <a href="http://diaz-bautista.netlify.app" target="_blank" class="text-decoration-none text-primary">Prof. Adolfo A. Díaz-Bautista Cremades</a>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        
+        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+            <li class="nav-item"><button class="nav-link active" id="teoria-tab" data-bs-toggle="tab" data-bs-target="#teoria" type="button">📖 Contenidos Teóricos</button></li>
+            <li class="nav-item"><button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button">🎬 Galería de Vídeos</button></li>
+            <li class="nav-item"><button class="nav-link" id="recursos-tab" data-bs-toggle="tab" data-bs-target="#recursos" type="button">📚 Recursos y Bibliografía</button></li>
+            <li class="nav-item"><button class="nav-link" id="calendario-tab" data-bs-toggle="tab" data-bs-target="#calendario" type="button">🗓️ Inscripción</button></li>
+            <li class="nav-item"><button class="nav-link" id="evaluacion-tab" data-bs-toggle="tab" data-bs-target="#evaluacion" type="button">📝 Evaluación</button></li>
+        </ul>
+
+        <div class="tab-content p-5 border border-top-0 bg-white shadow-sm rounded-bottom" id="myTabContent">
+
+            <div class="tab-pane fade show active projection-text" id="teoria">
+                
+                <div class="mb-5">
+                    <h2>1. La Comunicación Persuasiva</h2>
+                    <div class="theory-card">
+                        <h4>Del Sofismo al Neuromarketing</h4>
+                        <p>La oratoria moderna fusiona la <strong>Retórica Clásica</strong> (Aristóteles, Cicerón) con el <strong>Neuromarketing</strong> (Kotler). El objetivo es siempre la persuasión del auditorio.</p>
+                        <ul>
+                            <li><strong>Canal Verbal (7%):</strong> La palabra (Logos). Es el contenido lógico.</li>
+                            <li><strong>Canal Paraverbal (38%):</strong> La voz (Pathos). Transmite la emoción.</li>
+                            <li><strong>Canal No Verbal (55%):</strong> La imagen (Ethos). Genera la credibilidad.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h2>2. Técnica Vocal y Dicción</h2>
+                    
+                    <div class="theory-card">
+                        <h4>Entrenamiento del Instrumento</h4>
+                        <p>La voz debe proyectarse, no forzarse. Técnicas esenciales:</p>
+                        <ul>
+                            <li><strong>Respiración Diafragmática:</strong> El aire debe bajar al abdomen. Da soporte y volumen sin dañar las cuerdas vocales (15 min diarios).</li>
+                            <li><strong>Los Resonadores:</strong> La voz debe resonar en la "máscara" (cara) y el pecho, no quedarse en la garganta.</li>
+                            <li><strong>Relajación Mandibular:</strong> Una mandíbula tensa bloquea el sonido. Masajear la zona antes de hablar.</li>
+                        </ul>
+                        <h5 class="mt-4">Ejercicios de Vocalización</h5>
+                        <ul>
+                            <li><strong>Técnica del Lápiz:</strong> Leer con un lápiz entre los dientes para obligar a la lengua a sobrearticular.</li>
+                            <li><strong>Silabeo:</strong> Leer separando sílabas (SI-LA-BE-AR) para ganar consciencia del ritmo.</li>
+                            <li><strong>Trabalenguas:</strong> <em>"Sobre el triple trapecio de Trípoli..."</em>. Útiles para calentar y ganar agilidad articulatoria.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h2>3. Lenguaje No Verbal e Imagen</h2>
+                    <div class="theory-card">
+                        <h4>La Postura (Kinesia) y Apariencia</h4>
+                        <ul>
+                            <li><strong>Posturas de Poder:</strong> (Amy Cuddy) Ocupar espacio, hombros atrás. Transmiten seguridad biológica.</li>
+                            <li><strong>Evitar el "Efecto Péndulo":</strong> Pies paralelos a la altura de los hombros (base sólida).</li>
+                            <li><strong>Gestos Ilustradores:</strong> Las manos deben acompañar y "pintar" lo que dices.</li>
+                            <li><strong>Vestuario (Semiótica):</strong> El color comunica. Azul (autoridad), Negro (elegancia/distancia), Gris (neutralidad).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h2>4. Retórica y Construcción del Lenguaje</h2>
+                    
+                    <div class="theory-card">
+                        <h4>La Arquitectura del Lenguaje (Elocutio)</h4>
+                        <p>No basta con tener razón; hay que saber decirlo de forma memorable. Las figuras retóricas son herramientas de "adhesivo mental":</p>
+                        
+                        <h5 class="mt-4">1. Figuras de Repetición y Ritmo</h5>
+                        <ul>
+                            <li><strong>La Aliteración:</strong> Repetición de sonidos consonánticos. Genera musicalidad y facilita el eslogan. <em>"Veni, vidi, vici"</em>.</li>
+                            <li><strong>La Anáfora:</strong> Repetición deliberada de una palabra al inicio de varias frases. Ejemplo: Martin Luther King repitiendo <em>"I have a dream..."</em> ocho veces. Crea un ritmo hipnótico.</li>
+                            <li><strong>El Tricolon (Regla del Tres):</strong> El cerebro procesa los tríos como patrones completos. <em>"Libertad, Igualdad, Fraternidad"</em> o <em>"Sangre, sudor y lágrimas"</em>.</li>
+                        </ul>
+
+                        <h5 class="mt-4">2. Figuras de Significado</h5>
+                        <ul>
+                            <li><strong>La Metáfora:</strong> Convierte lo abstracto en tangible. <em>"El telón de acero"</em> (Churchill) o <em>"La marea blanca"</em>. El cerebro recuerda mejor imágenes que datos.</li>
+                            <li><strong>La Antítesis (Contraposición):</strong> Enfrentar dos ideas opuestas para resaltar el mensaje. JFK es el maestro: <em>"No preguntes qué puede hacer tu país por ti, pregunta qué puedes hacer tú por tu país"</em>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="theory-card">
+                        <h4>El Storytelling: El Poder de la Narrativa</h4>
+                        <p>Los datos convencen a la razón, pero las historias mueven el corazón. Un buen discurso jurídico o político debe tener estructura narrativa.</p>
+                        <div class="quote-box">"La gente olvidará lo que dijiste, la gente olvidará lo que hiciste, pero nunca olvidará cómo les hiciste sentir." — Maya Angelou</div>
+                        <p><strong>Estructura Básica:</strong></p>
+                        <ol>
+                            <li><strong>El Héroe:</strong> Una persona normal con la que empatizamos (tu cliente, el ciudadano, tú mismo).</li>
+                            <li><strong>El Incidente Incitador:</strong> El problema que rompe su normalidad (la injusticia, el conflicto).</li>
+                            <li><strong>El Viaje y la Lucha:</strong> Las dificultades enfrentadas.</li>
+                            <li><strong>La Resolución:</strong> La solución que proponemos (la sentencia favorable).</li>
+                        </ol>
+                    </div>
+
+                    <div class="theory-card">
+                        <h4>La Importancia de las Citas (Autoridad)</h4>
+                        <p>Invocar a grandes figuras históricas o jurídicas cumple una doble función:</p>
+                        <ul>
+                            <li><strong>Anclaje:</strong> Conecta nuestro discurso con una tradición de sabiduría aceptada.</li>
+                            <li><strong>Transferencia de Credibilidad:</strong> Al citar a Cicerón o a un Tribunal Supremo, tomamos prestada su autoridad (<em>Argumento Ad Verecundiam</em> positivo).</li>
+                        </ul>
+                    </div>
+
+                    <div class="theory-card bg-light border-start border-danger">
+                        <h4 class="text-danger">⚠️ Las Falacias (Trampas Lógicas)</h4>
+                        <p>Argumentos falsos que parecen verdaderos. El orador debe evitarlos y el jurista debe detectarlos:</p>
+                        <ul>
+                            <li><strong>Ad Hominem:</strong> Atacar a la persona, no al argumento.</li>
+                            <li><strong>Ad Verecundiam (Autoridad Falsa):</strong> <em>"Es verdad porque lo dice X"</em> (sin aportar razonamiento).</li>
+                            <li><strong>Ad Baculum (Fuerza):</strong> Imponer la razón por el miedo o la amenaza.</li>
+                            <li><strong>Ad Ignorantiam:</strong> <em>"Como no puedes probar que es falso, es verdadero"</em>.</li>
+                            <li><strong>Generalización Apresurada:</strong> Sacar una ley general de un caso aislado.</li>
+                            <li><strong>Hombre de Paja:</strong> Distorsionar el argumento del contrario para atacarlo fácil.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h2>5. Oratoria Forense</h2>
+                    <div class="theory-card">
+                        <h4>La Sala de Vistas</h4>
+                        <p>El objetivo final es la <strong>Sentencia</strong>.</p>
+                        <ul>
+                            <li><strong>Testigo Propio:</strong> Preguntas abiertas (¿Qué?, ¿Cómo?) para que narre y brille.</li>
+                            <li><strong>Testigo Hostil:</strong> Preguntas cerradas (¿Es cierto que...?) para controlarlo y evitar sorpresas.</li>
+                            <li><strong>Regla de Oro:</strong> Nunca hagas una pregunta cuya respuesta no conozcas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="videos">
+                <h2 class="text-center mb-5 display-5">Galería de Análisis</h2>
+
+                <h3 class="section-title text-primary border-bottom pb-2 mb-4">1. Técnicas de Comunicación y Storytelling</h3>
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/n8ENYAM3gGg" title="Victor Clavijo" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Víctor Clavijo</h5>
+                                <p class="small">"Vientos del Pueblo". Proyección vocal, dicción perfecta y fuerza interpretativa.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/1lSNfNJTZeY" title="Jimenez Losantos" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>F. Jiménez Losantos</h5>
+                                <p class="small">Oratoria ágil, culta y mordaz. Dominio de la improvisación y retórica agresiva.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/FH3Iup88mBA" title="Juan Vizuete" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Juan Vizuete</h5>
+                                <p class="small">Claves prácticas de comunicación no verbal y persuasión en el entorno profesional.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/PNayuxaOvY8" title="Storytelling" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Storytelling: Metáforas</h5>
+                                <p class="small">La Metáfora del Fútbol. Cómo explicar conceptos complejos usando símiles cotidianos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title text-primary border-bottom pb-2 mb-4">2. Historia de la Oratoria</h3>
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-4x3"> 
+                                <iframe src="https://www.youtube.com/embed/0VPD0gINPtw" title="Hitler Discurso 1935" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Adolf Hitler (1935)</h5>
+                                <p class="small">Reichstag. Estudio del énfasis gestual y la proyección vocal autoritaria (Formato Short).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/J7GY1Xg6X20" title="Chaplin" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Charles Chaplin (1940)</h5>
+                                <p class="small">"El Gran Dictador". Discurso humanista. Transición de la comedia al mensaje moral universal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/VeLTgeyIdew" title="Esteban Bilbao" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Esteban Bilbao (Años 40)</h5>
+                                <p class="small">Oratoria Parlamentaria Clásica. Retórica solemne y literaria, con una prosodia muy cuidada.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/0GKd50lrROc" title="JFK Berlin" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>John F. Kennedy (Jun 1963)</h5>
+                                <p class="small">"Ich bin ein Berliner". Identificación total con la audiencia y empatía política.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/vP4iY1TtS3s" title="MLK" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Martin Luther King (Ago 1963)</h5>
+                                <p class="small">"I Have a Dream". El uso magistral de la repetición (anáfora) y el ritmo de predicador.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/qGyqUznMXhs" title="Salvador Allende" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Salvador Allende (1972)</h5>
+                                <p class="small">Guadalajara (México). Pasión ideológica y conexión directa con la juventud universitaria.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/1mwzMAjgICg" title="Fidel Castro" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Fidel Castro (1979)</h5>
+                                <p class="small">Discurso en la ONU. Fuerza, pausa dramática y denuncia directa.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/qmmJva1NJ7k" title="Julio Anguita" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Julio Anguita (1999)</h5>
+                                <p class="small">Didáctica, estructura lógica y vehemencia intelectual. El "mejor discurso político".</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/HHkJEz_HdTg" title="Steve Jobs" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Steve Jobs (2005)</h5>
+                                <p class="small">Stanford. Storytelling puro: "Conectar los puntos". Estructura simple de tres historias.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/gkjW9PZBRfk" title="Emma Watson" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Emma Watson (2014)</h5>
+                                <p class="small">ONU - HeForShe. Vulnerabilidad controlada y conexión emocional moderna.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title text-primary border-bottom pb-2 mb-4">3. Práctica Forense</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/MQHpVdNo0H8" title="Begoña Gerpe" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Begoña Gerpe: Interrogatorios</h5>
+                                <p class="small">Consejos prácticos para interrogar testigos en sala.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/UtaxZ0dC3B8" title="Oscar Fernandez Leon" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5>Óscar Fernández León</h5>
+                                <p class="small">Conferencia sobre el Interrogatorio. Estrategia procesal y psicología del testimonio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="recursos">
+                <div class="mb-5">
+                    <h2 class="text-center mb-5 display-5">Recursos y Bibliografía</h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="theory-card h-100">
+                                <h4 class="text-primary mb-3">Bibliografía Básica Recomendada</h4>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Juan Vizuete:</strong> <em>"Influye y Convence: Estrategias para persuadir y conseguir lo que te propongas"</em>. HarperCollins (2024).</li>
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Óscar Fernández León:</strong> <em>"Con la Venia, manual de oratoria para abogados"</em>. Aranzadi (2013).</li>
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Óscar Fernández León:</strong> <em>"Arte y técnica del interrogatorio"</em>. Thomson Reuters Aranzadi.</li>
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Natalia Gómez del Pozuelo:</strong> <em>"Hablar en público con éxito"</em>.</li>
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Allan & Barbara Pease:</strong> <em>"El lenguaje del cuerpo"</em>. Amat Editorial.</li>
+                                    <li class="mb-3"><i class="fas fa-book text-warning me-2"></i> <strong>Aristóteles:</strong> <em>"Retórica"</em>. (Lectura clásica fundamental).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="theory-card h-100">
+                                <h4 class="text-primary mb-3">Canales y Blogs de Interés</h4>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3"><a href="https://oscarleon.es/" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fas fa-laptop text-info me-2"></i> Blog de Óscar León (Abogacía Práctica)</a><br><small>Recursos sobre gestión de despachos e interrogatorios.</small></li>
+                                    <li class="mb-3"><a href="https://www.youtube.com/@teresabarocom" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fab fa-youtube text-danger me-2"></i> Canal de Teresa Baró</a><br><small>Experta en comunicación no verbal y habilidades profesionales.</small></li>
+                                    <li class="mb-3"><a href="https://www.youtube.com/EscuelaOratoria" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fab fa-youtube text-danger me-2"></i> Escuela Europea de Oratoria</a></li>
+                                    <li class="mb-3"><a href="https://roleplayjuridico.com/" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fas fa-gavel text-success me-2"></i> Roleplay Jurídico</a><br><small>Simulaciones de juicios y oratoria procesal práctica.</small></li>
+                                    <li class="mb-3"><a href="https://www.youtube.com/c/JuanVizuete" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fab fa-youtube text-danger me-2"></i> Canal de Juan Vizuete</a></li>
+                                    <li class="mb-3"><a href="https://www.youtube.com/@juanantoniogarciaamado4445" target="_blank" class="text-decoration-none text-dark fw-bold"><i class="fab fa-youtube text-danger me-2"></i> Canal de Juan Antonio García Amado</a><br><small>Recursos y análisis sobre argumentación jurídica y filosofía del derecho.</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="calendario">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow border-primary mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h3 class="mb-0 text-center">Reserva de Turno de Exposición</h3>
+                            </div>
+                            
+                            <div class="card-body p-5 text-center">
+                                <h4 class="mb-4 text-primary fw-bold">Gestión de Citas Online</h4>
+                                <p class="lead mb-4">Selecciona el día y la hora exacta para tu exposición. Recibirás confirmación inmediata en tu correo.</p>
+                                
+                                <div class="alert alert-info mb-4 text-start">
+                                    <i class="fas fa-clock me-2"></i> <strong>Horarios disponibles:</strong>
+                                    <ul class="mb-0 mt-2 small">
+                                        <li>Días y horas: Por determinar</li>
+                                        <li>Fechas: Por determinar</li>
+                                    </ul>
+                                </div>
+
+                                <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+                                <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+                                
+                                <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/adolfo-diaz-bautista/30min'});return false;" class="btn btn-primary btn-lg px-5 py-3 shadow rounded-pill">
+                                    <i class="far fa-calendar-alt me-2"></i> RESERVAR MI TURNO AHORA
+                                </a>
+                                
+                                <p class="text-muted mt-4 small">
+                                    <i class="fas fa-exclamation-circle"></i> Nota: Si una hora no aparece, es que ya ha sido reservada por otro compañero.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="tab-pane fade" id="evaluacion">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-0">
+                    <div class="bg-primary text-white p-4 text-center rounded-top">
+                        <h3 class="mb-1">Ficha de Evaluación de Oratoria</h3>
+                        <p class="mb-0 small">Curso Académico | Universidad de Murcia</p>
+                    </div>
+                    
+                    <div class="ratio" style="--bs-aspect-ratio: 120%; min-height: 1100px;">
+                        <iframe 
+                            src="https://docs.google.com/forms/d/e/1FAIpQLSdxVIBONlG6WtOF1x25V4vEJc6bmUBT5BlpHWYlFhYb3853Ww/viewform?embedded=true" 
+                            width="100%" 
+                            height="1100" 
+                            frameborder="0" 
+                            marginheight="0" 
+                            marginwidth="0"
+                            style="border: none;">
+                            Cargando formulario de evaluación…
+                        </iframe>
+                    </div>
+
+                    <div class="alert alert-light m-4 border">
+                        <div class="d-flex">
+                            <i class="fas fa-info-circle text-primary me-3 mt-1" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <strong>Instrucciones de envío:</strong>
+                                <ul class="mb-0 mt-1 small text-muted">
+                                    <li>Asegúrese de pulsar el botón <strong>"Enviar"</strong> al finalizar cada valoración.</li>
+                                    <li>Para evaluar a un nuevo compañero, haga clic en el enlace "Enviar otra respuesta" que aparecerá tras la confirmación.</li>
+                                    <li>No es necesario iniciar sesión con cuenta de Google.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                                
+
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-1 fw-bold">&copy; <a href="http://diaz-bautista.netlify.app" target="_blank" class="text-white text-decoration-none">Adolfo A. Díaz-Bautista</a>. Universidad de Murcia. Proyecto docente Ulpiano.</p>
+            <p><a href="http://diaz-bautista.netlify.app" target="_blank">Visitar Perfil Académico</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
