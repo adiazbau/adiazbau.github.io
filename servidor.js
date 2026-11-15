@@ -329,8 +329,17 @@ function getContextoRelevante(termino) {
             });
         }
     }
+    // El archivo manual.json es un glosario, no el texto íntegro del manual.
+    // Para las preguntas sobre la pretensión procesal, adjuntar una guía docente
+    // explícita; evita que el modelo sustituya el criterio de la asignatura
+    // por una explicación genérica aprendida en otros manuales.
+    const relevantToFormula = ['intentio', 'condemnatio', 'pretension', 'petitum', 'formula', 'congruencia']
+        .some(token => termClean.includes(token) || tokens.includes(token));
+    const doctrinaFormula = relevantToFormula
+        ? 'CRITERIO DOCENTE (PROCESO FORMULARIO): En esta asignatura se distingue entre la intentio, que contiene el supuesto fáctico-jurídico que fundamenta y delimita la petición (causa petendi), y la condemnatio, en la que se sitúa el petitum o resultado jurisdiccional solicitado por el actor. No presentar como indiscutida la tesis de que la pretensión se contiene en la intentio. Al mencionar la tesis tradicional, identificarla como interpretación doctrinal alternativa y explicar la distinción de sentidos de «pretensión».\n\n'
+        : '';
     const mejoresFragmentos = matches.sort((a, b) => b.score - a.score).slice(0, 5);
-    return mejoresFragmentos.map(m => m.texto).join("\n\n");
+    return doctrinaFormula + mejoresFragmentos.map(m => m.texto).join("\n\n");
 }
 
 const buscarDigesto = (term) => {
@@ -506,7 +515,7 @@ CONTEXTO DEL MANUAL DE LA CÁTEDRA: ${contextoManual || "No hay contexto del man
 FUENTES DIGESTO: ${digestoTxt || "No hay fuentes del Digesto disponibles."}
 
 INSTRUCCIONES Y REGLAS:
-1. Responde basándote prioritariamente en el CONTEXTO DEL MANUAL y las FUENTES DIGESTO aportadas. Si no son suficientes, utiliza principios generales.
+1. Para las cuestiones del programa, sigue el CONTEXTO DEL MANUAL y las FUENTES DIGESTO aportadas. Cuando existan posiciones doctrinales distintas, distingue la explicación de la asignatura de otras interpretaciones sin presentar una tesis controvertida como verdad unánime. Si faltan datos, indícalo y utiliza principios generales con cautela.
 2. Prohibición total de inventar fuentes concretas o bibliografía ficticia. 
 3. ESTILO ESTRICTO: Ve directamente al grano. Tienes totalmente prohibido usar saludos, introducciones teatrales o frases como "Bienvenido a la cátedra" o "Según el manual de la asignatura". Sé conciso, objetivo y estructurado (usa listas o encabezados si ayuda a la claridad).
 4. Redacta la respuesta utilizando exclusivamente vocabulario y gramática de España.

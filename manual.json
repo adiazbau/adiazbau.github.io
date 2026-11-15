@@ -111,7 +111,7 @@
   },
   {
     "termino": "Fórmula",
-    "definicion": "Era un documento escrito que resumía los términos de un litigio en el procedimiento formulario. Redactada por el Pretor, servía como instrucción para el juez. Sus partes principales eran la 'intentio' (pretensión del demandante) y la 'condemnatio' (orden de condenar o absolver).",
+    "definicion": "Documento procesal redactado por el pretor que fija los términos del litigio y las instrucciones al iudex en el procedimiento formulario. La intentio establece el supuesto cuya prueba fundamenta la petición del actor y delimita su causa; la condemnatio expresa el petitum o resultado condenatorio pretendido y faculta al juez para condenar o absolver. Según la interpretación defendida en esta asignatura, debe distinguirse la base de la pretensión (intentio) de la pretensión jurisdiccional propiamente dicha (condemnatio). Parte de la doctrina utiliza «pretensión» para referirse a la intentio, por lo que es necesario explicitar la diferencia terminológica.",
     "tema": 15
   },
   {
@@ -131,7 +131,11 @@
   },
   {
     "termino": "Posesión",
-    "sinonimos": ["possessio", "tenencia", "posesion"],
+    "sinonimos": [
+      "possessio",
+      "tenencia",
+      "posesion"
+    ],
     "definicion": "Es la tenencia material de una cosa ('corpus') con la intención de tenerla como propia ('animus'). Es una situación de hecho protegida por interdictos. Según el manual, tanto la posesión natural (mera tenencia) como la civil (con 'animus domini') estaban protegidas, a diferencia de la mera detentación (ej. arrendatario), que no tenía protección.",
     "tema": 20
   },
@@ -152,7 +156,9 @@
   },
   {
     "termino": "Usucapión",
-    "sinonimos": ["usucapio"],
+    "sinonimos": [
+      "usucapio"
+    ],
     "definicion": "Es la adquisición de la propiedad por la posesión continuada de una cosa durante el tiempo fijado por la ley, requiriendo buena fe y justa causa. Es la forma de subsanar un vicio en la adquisición de la propiedad.",
     "tema": 24
   },
@@ -178,7 +184,9 @@
   },
   {
     "termino": "Obligación",
-    "sinonimos": ["obligatio"],
+    "sinonimos": [
+      "obligatio"
+    ],
     "definicion": "Es un vínculo jurídico por el cual un deudor está constreñido a realizar una prestación (de dar, hacer o no hacer) a favor de un acreedor.",
     "tema": 30
   },
@@ -199,7 +207,9 @@
   },
   {
     "termino": "Compraventa",
-    "sinonimos": ["emptio venditio"],
+    "sinonimos": [
+      "emptio venditio"
+    ],
     "definicion": "Contrato consensual por el que un vendedor se obliga a entregar la posesión pacífica de una cosa a un comprador, y este a pagar un precio en dinero. El vendedor respondía por evicción (si el comprador era privado de la cosa) y por vicios ocultos.",
     "tema": 36
   },
