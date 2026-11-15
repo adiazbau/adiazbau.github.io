@@ -477,9 +477,41 @@ app.post('/api/buscar-pagina', (req, res) => {
     res.json(found.topic||{pagina:null,titulo:null});
 });
 
+// Respuesta docente revisada para un error grave detectado en producción.
+// Los modelos equiparaban erróneamente la condemnatio a la sentencia.
+// Solo se aplica a consultas específicamente sobre la distribución
+// intentio / condemnatio o el lugar de la pretensión en la fórmula.
+function respuestaVerificadaFormula(pregunta) {
+    const q=normalizarTexto(String(pregunta||''));
+    const a=q.includes('intentio');
+    const b=q.includes('condemnatio');
+    const pret=q.includes('pretension')||q.includes('petitum')||q.includes('suplico');
+    const formula=q.includes('formula')||q.includes('formulario');
+    const especifica=(a&&b)||(pret&&formula)||(pret&&(a||b))||(b&&(q.includes('sentencia')||q.includes('fallo')));
+    if(!especifica)return null;
+    return {
+        respuesta: 'En el procedimiento formulario deben distinguirse las dos cláusulas de la fórmula, que el pretor fija en la fase in iure, de la sentencia que el iudex dicta posteriormente en la fase apud iudicem.\n\n'
+        + '1. Intentio: contiene la base fáctica o jurídica de la pretensión del actor y delimita aquello que debe quedar acreditado. En términos procesales modernos, guarda relación con la fundamentación de la demanda (causa petendi).\n\n'
+        + '2. Condemnatio: es una cláusula de la fórmula que expresa la petición condenatoria del actor (petitum o suplico) y autoriza al juez a condenar o absolver si se cumplen las condiciones fijadas. No es el fallo de la sentencia. La sentencia la dicta después el iudex, de conformidad con la fórmula.\n\n'
+        + 'Por tanto, la intentio no contiene simultáneamente la causa de pedir y el suplico; ni debe confundirse la condemnatio con la sentencia. La doctrina tradicional utiliza en ocasiones el término «pretensión» para la intentio, pero la distinción anterior es la que se sigue en los manuales de esta asignatura.',
+        moderno: 'En el proceso civil actual, la demanda distingue entre la fundamentación fáctico-jurídica y el suplico. El fallo es un acto posterior del órgano judicial, que debe respetar la congruencia con lo pedido. En la comparación funcional propuesta en esta asignatura, la intentio se vincula con la fundamentación y la condemnatio con el suplico, nunca directamente con el fallo.',
+        pagina:67,
+        titulo:'El proceso formulario (fase in iure)',
+        notaPagina:'Lecciones (2026), tema 7, § 7.7.1, p. 67',
+        proveedor:'docente',
+        modelo:'explicación revisada',
+        fuentes:[
+            {obra:'Lecciones de Derecho Romano',edicion:'2026',tema:'7',epigrafe:'7.7.1 Partes Principales (Ordinarias)',pagina:67},
+            {obra:'El Derecho Romano como introducción al Derecho',edicion:'2023',tema:'8',epigrafe:'Partes más importantes de la fórmula',pagina:124}
+        ]
+    };
+}
+
 app.post('/api/consulta-unificada', async (req, res) => {
     try {
         const { termino } = req.body;
+        const respuestaDocente=respuestaVerificadaFormula(termino);
+        if(respuestaDocente) return res.json(respuestaDocente);
         const termLower = termino ? normalizarTexto(termino) : "";
         const docs=biblioteca.search(termino);
         const pagInfo=docs.topic||{pagina:null,titulo:null};
