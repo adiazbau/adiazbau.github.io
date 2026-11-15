@@ -127,6 +127,7 @@ function handleApiError(error, res) {
     const safeMessage = providerMessage
         .replace(/([?&]key=)[^&\s]+/gi, '$1[OCULTA]')
         .replace(/(AIza)[A-Za-z0-9_-]+/g, '[CLAVE OCULTA]')
+        .replace(/sk-[A-Za-z0-9_-]+/g, '[CLAVE OCULTA]')
         .slice(0, 600);
 
     console.error('[Gemini API]', {
@@ -157,21 +158,143 @@ function limpiarYParsearJSON(texto) {
     }
 }
 
-async function callGeminiWithRetries(payload) {
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent?key=${GEMINI_API_KEY}`;
+// --- PROVEEDORES DE IA Y CONTADOR DE CONSUMO ---
+// Variables de Render (nunca incluir sus valores en GitHub):
+// AI_PROVIDER=gemini|openai, AI_FALLBACK_ENABLED=false|true
+// OPENAI_API_KEY (opcional), OPENAI_MODEL=gpt-5.4-mini
+// GEMINI_API_KEY (existente), GEMINI_MODEL=gemini-3.1-pro-preview
+// ADMIN_STATS_TOKEN (opcional; protege la consulta privada de estadísticas).
+const crypto = require('crypto');
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
+const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-5.4-mini';
+const PRIMARY_PROVIDER = process.env.AI_PROVIDER === 'openai' ? 'openai' : 'gemini';
+const FALLBACK_ENABLED = process.env.AI_FALLBACK_ENABLED === 'true';
+const startedAt = new Date().toISOString();
+const usageMonths = Object.create(null);
 
-    try {
-        const geminiResponse = await axios.post(url, payload, { 
-            headers: { 'Content-Type': 'application/json' },
-            timeout: 30000 
-        }); 
-        if (geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
-            return geminiResponse.data.candidates[0].content.parts[0].text;
+// Precios orientativos USD por millón de tokens de texto; actualizar si cambian.
+// Se computan las unidades que declara cada API, no una aproximación de caracteres.
+const UNIT_PRICES = Object.freeze({
+    'gemini-3.1-pro-preview': { input: 2.00, output: 12.00 },
+    'gpt-5.4-mini': { input: 0.75, cachedInput: 0.075, output: 4.50 }
+});
+
+function saveUsage({ provider, model, feature, usage }) {
+    const input = Math.max(0, Number(usage.inputTokens) || 0);
+    const output = Math.max(0, Number(usage.outputTokens) || 0);
+    const cached = Math.min(input, Math.max(0, Number(usage.cachedTokens) || 0));
+    const price = UNIT_PRICES[model];
+    const estimatedUsd = price
+        ? ((input - cached) * price.input +
+           cached * (price.cachedInput ?? price.input) +
+           output * price.output) / 1_000_000
+        : null;
+    const month = new Date().toISOString().slice(0, 7);
+    if (!usageMonths[month]) usageMonths[month] = { requests: 0, inputTokens: 0, outputTokens: 0, estimatedUsd: 0, breakdown: {} };
+    const total = usageMonths[month];
+    const key = provider + ':' + model + ':' + feature;
+    if (!total.breakdown[key]) total.breakdown[key] = { requests: 0, inputTokens: 0, outputTokens: 0, estimatedUsd: 0 };
+    for (const item of [total, total.breakdown[key]]) {
+        item.requests += 1;
+        item.inputTokens += input;
+        item.outputTokens += output;
+        if (estimatedUsd !== null) item.estimatedUsd += estimatedUsd;
+    }
+    // Render conserva registros según su plan; ningún texto del usuario se registra aquí.
+    console.log('[AI_USAGE]', JSON.stringify({
+        month, provider, model, feature, inputTokens: input, outputTokens: output,
+        estimatedUsd: estimatedUsd === null ? null : Number(estimatedUsd.toFixed(8))
+    }));
+}
+
+function validAdminToken(req) {
+    const expected = process.env.ADMIN_STATS_TOKEN;
+    const received = req.get('x-admin-token');
+    if (!expected || !received) return false;
+    const a = Buffer.from(expected);
+    const b = Buffer.from(received);
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+// Uso privado del profesor: no publicar ADMIN_STATS_TOKEN en index.html.
+// NOTA: cifras en memoria desde el último reinicio de Render; los registros
+// [AI_USAGE] permiten consultar el histórico sujeto a retención de Render.
+app.get('/api/admin/usage', (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    if (!validAdminToken(req)) return res.status(403).json({ error: 'FORBIDDEN' });
+    res.json({ startedAt, ephemeral: true, currency: 'USD', estimate: true, months: usageMonths });
+});
+
+async function callGemini(payload, feature) {
+    const key = process.env.GEMINI_API_KEY;
+    if (!key) throw new Error('GEMINI_API_KEY no está configurada en Render');
+    const response = await axios.post(
+        'https://generativelanguage.googleapis.com/v1beta/models/' +
+        encodeURIComponent(GEMINI_MODEL) + ':generateContent',
+        payload,
+        { headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key }, timeout: 30000 }
+    );
+    const parts = response.data?.candidates?.[0]?.content?.parts || [];
+    const text = parts.map(part => part.text || '').join('').trim();
+    if (!text) throw new Error('Gemini devolvió una respuesta vacía');
+    const usage = response.data?.usageMetadata || {};
+    saveUsage({
+        provider: 'gemini', model: GEMINI_MODEL, feature,
+        usage: {
+            inputTokens: usage.promptTokenCount,
+            outputTokens: (usage.candidatesTokenCount || 0) + (usage.thoughtsTokenCount || 0),
+            cachedTokens: 0 // Tarifa estándar conservadora
         }
-        throw new Error('Respuesta vacía.');
+    });
+    return text;
+}
+
+async function callOpenAI(payload, feature) {
+    const key = process.env.OPENAI_API_KEY;
+    if (!key) throw new Error('OPENAI_API_KEY no está configurada en Render');
+    const prompt = payload.contents?.flatMap(c => c.parts || []).map(p => p.text || '').join('\n') || '';
+    const response = await axios.post('https://api.openai.com/v1/responses', {
+        model: OPENAI_MODEL,
+        input: prompt,
+        store: false,
+        max_output_tokens: 4000,
+        reasoning: { effort: 'none' }
+    }, {
+        headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+        timeout: 45000
+    });
+    const output = response.data?.output || [];
+    const text = output.flatMap(item => item.content || [])
+        .filter(part => part.type === 'output_text')
+        .map(part => part.text || '').join('\n').trim();
+    if (!text) throw new Error('OpenAI devolvió una respuesta vacía');
+    const usage = response.data?.usage || {};
+    saveUsage({
+        provider: 'openai', model: OPENAI_MODEL, feature,
+        usage: {
+            inputTokens: usage.input_tokens,
+            outputTokens: usage.output_tokens,
+            cachedTokens: usage.input_tokens_details?.cached_tokens
+        }
+    });
+    return text;
+}
+
+// Conservamos el nombre original para no modificar el contrato de los endpoints.
+async function callGeminiWithRetries(payload, feature = 'general') {
+    const first = PRIMARY_PROVIDER;
+    const second = first === 'gemini' ? 'openai' : 'gemini';
+    const call = name => name === 'gemini' ? callGemini(payload, feature) : callOpenAI(payload, feature);
+    try {
+        return await call(first);
     } catch (error) {
-        throw error;
+        const status = error.response?.status;
+        const canFallback = FALLBACK_ENABLED &&
+            (status === 402 || status === 429 || status >= 500) &&
+            (second === 'openai' ? Boolean(process.env.OPENAI_API_KEY) : Boolean(process.env.GEMINI_API_KEY));
+        if (!canFallback) throw error;
+        console.warn('[AI_FALLBACK]', JSON.stringify({ from: first, to: second, status }));
+        return await call(second);
     }
 }
 
@@ -330,7 +453,7 @@ INSTRUCCIONES Y REGLAS ABSOLUTAS:
                 topP: 0.1
             }
         };
-        const respuestaIA = await callGeminiWithRetries(payload);
+        const respuestaIA = await callGeminiWithRetries(payload, 'laboratorio');
         
         if (tipo === 'resolver' && currentCaseText) {
             const key = normalizarTexto(currentCaseText).substring(0, 50);
@@ -399,7 +522,7 @@ NO escribas nada fuera del JSON.
                 topP: 0.1
             }
         };
-        const respuestaTexto = await callGeminiWithRetries(payload);
+        const respuestaTexto = await callGeminiWithRetries(payload, 'ulpiano');
         guardarEnMemoria(termLower, respuestaTexto);
         const jsonRespuesta = limpiarYParsearJSON(respuestaTexto);
         
@@ -420,7 +543,7 @@ app.post('/api/consulta-parentesco', async (req, res) => {
             contents: [{ parts: [{ text: prompt }] }],
             generationConfig: { temperature: 0 } 
         };
-        const resp = await callGeminiWithRetries(payload);
+        const resp = await callGeminiWithRetries(payload, 'parentesco');
         res.json(limpiarYParsearJSON(resp));
     } catch (error) { handleApiError(error, res); }
 });
