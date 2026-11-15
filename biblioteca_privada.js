@@ -42,6 +42,12 @@ function search(query){
   let score=found.length*6+found.length/terms.length*14;
   score+=found.filter(t=>heading.includes(t)).length*8;
   if(item.s==='Lecciones de Derecho Romano')score*=1.5;
+  // Las preguntas sobre la pretensión del proceso formulario deben recuperar
+  // antes que nada la sección doctrinal exacta de Lecciones (2026).
+  const keys=['intentio','condemnatio','pretension','petitum','formula'];
+  const formulaQuery=terms.some(t=>keys.includes(t));
+  if(formulaQuery && item.s==='Lecciones de Derecho Romano' &&
+     item.t==='7' && /partes principales|f[oó]rmula y sus partes/i.test(item.h)) score+=65;
   else if(item.s==='El Derecho Romano como introducción al Derecho')score*=1.15;
   matches.push({item,score});
  }
