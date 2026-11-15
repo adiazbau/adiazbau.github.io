@@ -487,7 +487,7 @@ function respuestaVerificadaFormula(pregunta) {
     const b=q.includes('condemnatio');
     const pret=q.includes('pretension')||q.includes('petitum')||q.includes('suplico');
     const formula=q.includes('formula')||q.includes('formulario');
-    const especifica=(a&&b)||(pret&&formula)||(pret&&(a||b));
+    const especifica=(a&&b)||(pret&&formula)||(pret&&(a||b))||(b&&(q.includes('sentencia')||q.includes('fallo')));
     if(!especifica)return null;
     return {
         respuesta: 'En el procedimiento formulario deben distinguirse las dos cláusulas de la fórmula, que el pretor fija en la fase in iure, de la sentencia que el iudex dicta posteriormente en la fase apud iudicem.\n\n'
