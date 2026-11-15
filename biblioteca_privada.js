@@ -60,7 +60,7 @@ function search(query){
   if(selected.length===4)break;
  }
  const sources=selected.map(it=>({
-  obra:it.s,edicion:it.e,tema:it.t||null,epigrafe:it.h||null,
+  obra:it.s,edicion:it.e,tema:it.t||null,epigrafe:it.s==='Lecciones de Derecho Romano'?(it.h||null):null,
   pagina:it.s==='Lecciones de Derecho Romano'?null:it.p||null
  }));
  const v=selected.find(x=>x.s==='Lecciones de Derecho Romano'&&/^\d+$/.test(x.t||''));
