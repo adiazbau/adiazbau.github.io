@@ -4476,13 +4476,32 @@
                     }
 
                     if (result.pagina && result.titulo) {
-                        resultadoFinal.push(`**Para saber más:**\nPuedes consultar el tema "${result.titulo}" en la página ${result.pagina} del manual.`);
+                        resultadoFinal.push(`**Para saber más:**\nPuedes consultar el tema "${result.titulo}" desde la página ${result.pagina} de Lecciones de Derecho Romano (2026).`);
                     }
 
                     const textoFinal = resultadoFinal.join('\n\n');
-                    queryResultText.innerHTML = sanitizeHTML(textoFinal).replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    queryResultText.innerHTML = sanitizeHTML(textoFinal).replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')+pieRespuestaIA(result);
                 }
             });
+        }
+
+
+        // Procedencia del modelo y referencias de la edición consultada.
+        // Todo se inserta escapado; nunca se inyectan respuestas como HTML.
+        function pieRespuestaIA(result) {
+            if(!result||!result.proveedor)return '';
+            const modelo=result.modelo||result.proveedor;
+            const tag='Generado con '+(result.proveedor==='openai'?'OpenAI':'Google Gemini')+' · '+modelo;
+            const fuentes=(result.fuentes||[]).slice(0,3).map(f=>{
+                let t=f.obra+' ('+f.edicion+')';
+                if(f.tema)t+=' · tema '+f.tema;
+                if(f.epigrafe)t+=' · '+f.epigrafe;
+                if(f.pagina)t+=' · p. '+f.pagina;
+                return t;
+            });
+            const cite=fuentes.length?'Referencias documentales consultadas: '+fuentes.join(' | '):'Sin referencia documental específica verificada';
+            return '<div class="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-500">'
+                +sanitizeHTML(tag)+'<div class="mt-1">'+sanitizeHTML(cite)+'</div></div>';
         }
 
         function initCaseLabPage() {
@@ -4555,7 +4574,7 @@
                     currentCaseText = '';
                 } else {
                     currentCaseText = result.respuesta || 'No se pudo generar el caso.';
-                    caseResult.innerHTML = sanitizeHTML(currentCaseText).replace(/\n/g, '<br>');
+                    caseResult.innerHTML = sanitizeHTML(currentCaseText).replace(/\n/g, '<br>')+pieRespuestaIA(result);
                     solveBtn.classList.remove('hidden');
                 }
             });
@@ -4600,7 +4619,7 @@
                 if (result.error) {
                     showError(solutionBody, result.error);
                 } else {
-                    solutionBody.innerHTML = sanitizeHTML(result.respuesta || 'No se pudo generar la solución.').replace(/\n/g, '<br>');
+                    solutionBody.innerHTML = sanitizeHTML(result.respuesta || 'No se pudo generar la solución.').replace(/\n/g, '<br>')+pieRespuestaIA(result);
                 }
             });
         }
