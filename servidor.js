@@ -117,7 +117,27 @@ app.use('/api/', limiter);
 
 // --- UTILIDADES ---
 function handleApiError(error, res) {
-    console.error("Error API:", error.message);
+    // Registrar el motivo devuelto por Google sin exponer claves, cabeceras ni prompts.
+    // Nunca registrar error.config: Axios puede incluir la clave API en su URL.
+    const status = error.response?.status ?? null;
+    const providerError = error.response?.data?.error;
+    const providerMessage = typeof providerError?.message === 'string'
+        ? providerError.message
+        : (typeof error.message === 'string' ? error.message : 'Error desconocido');
+    const safeMessage = providerMessage
+        .replace(/([?&]key=)[^&\s]+/gi, '$1[OCULTA]')
+        .replace(/(AIza)[A-Za-z0-9_-]+/g, '[CLAVE OCULTA]')
+        .slice(0, 600);
+
+    console.error('[Gemini API]', {
+        httpStatus: status,
+        providerStatus: typeof providerError?.status === 'string' ? providerError.status : null,
+        errorCode: typeof providerError?.code === 'number' ? providerError.code : null,
+        message: safeMessage,
+        networkCode: error.code || null
+    });
+
+    // Mantener la respuesta pública genérica, sin datos internos del proveedor.
     res.status(500).json({ error: 'INTERNAL_ERROR', message: 'Error del sistema.' });
 }
 
