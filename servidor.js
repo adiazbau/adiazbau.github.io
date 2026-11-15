@@ -6,6 +6,7 @@ const axios = require('axios');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const biblioteca = require('./biblioteca_privada');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -104,7 +105,9 @@ app.use(helmet({
 }));
 app.set('trust proxy', 1);
 
-app.use(express.static(__dirname));
+// Impedir que un Secret File de Render sea servido accidentalmente.
+app.use((req,res,next)=>{if (/\.(?:b64|gz|pdf|docx)$/i.test(req.path)) return res.status(404).end();next();});
+app.use(express.static(__dirname, {dotfiles:'deny'}));
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutos
@@ -281,12 +284,12 @@ async function callOpenAI(payload, feature) {
 }
 
 // Conservamos el nombre original para no modificar el contrato de los endpoints.
-async function callGeminiWithRetries(payload, feature = 'general') {
-    const first = PRIMARY_PROVIDER;
+async function callGeminiWithRetries(payload, feature = 'general', providerPrivado = null) {
+    const first = providerPrivado === 'gemini' || providerPrivado === 'openai' ? providerPrivado : PRIMARY_PROVIDER;
     const second = first === 'gemini' ? 'openai' : 'gemini';
     const call = name => name === 'gemini' ? callGemini(payload, feature) : callOpenAI(payload, feature);
     try {
-        return await call(first);
+        return {texto:await call(first),proveedor:first,modelo:first==='openai'?OPENAI_MODEL:GEMINI_MODEL};
     } catch (error) {
         const status = error.response?.status;
         const canFallback = FALLBACK_ENABLED &&
@@ -294,7 +297,7 @@ async function callGeminiWithRetries(payload, feature = 'general') {
             (second === 'openai' ? Boolean(process.env.OPENAI_API_KEY) : Boolean(process.env.GEMINI_API_KEY));
         if (!canFallback) throw error;
         console.warn('[AI_FALLBACK]', JSON.stringify({ from: first, to: second, status }));
-        return await call(second);
+        return {texto:await call(second),proveedor:second,modelo:second==='openai'?OPENAI_MODEL:GEMINI_MODEL};
     }
 }
 
@@ -395,6 +398,8 @@ function buscarPagina(termino) {
 
 // --- ENDPOINTS ---
 
+function testProvider(req){const v=req.get('x-test-provider');return validAdminToken(req)&&['gemini','openai'].includes(v)?v:null;}
+
 app.post('/api/consulta', async (req, res) => {
     try {
         const { tipo, termino, currentCaseText } = req.body;
@@ -409,7 +414,8 @@ app.post('/api/consulta', async (req, res) => {
         const terminoBusqueda = (tipo === 'resolver' && currentCaseText) ? currentCaseText : termino;
         const terminoNormalizado = terminoBusqueda ? terminoBusqueda.substring(0, 100) : ''; 
         
-        const contextoFinal = getContextoRelevante(termino ? termino : '');
+        const docs=biblioteca.search(terminoBusqueda||'');
+        const contextoFinal=docs.context || getContextoRelevante(termino||'');
         const coincidencias = buscarDigesto(terminoNormalizado); 
         let bloqueDigesto = coincidencias.length > 0 
             ? coincidencias.map(c => `FUENTE LOCAL (${c.cita}): "${c.latin}" (${c.espanol})`).join("\n")
@@ -417,7 +423,7 @@ app.post('/api/consulta', async (req, res) => {
 
         const instruccionesSeguridad = `
         REGLAS DE RESOLUCIÓN:
-        1. Basa tu fallo prioritariamente en el DIGESTO LOCAL y el CONTEXTO aportados.
+        1. Basa tu fallo prioritariamente en el DIGESTO LOCAL y el CONTEXTO aportados. Prioriza Lecciones de Derecho Romano (2026) en cuestiones de programa.
         2. Si las fuentes no cubren el caso, utiliza principios generales del Derecho Romano.
         3. Tienes terminantemente prohibido inventar fuentes concretas. NO generes bibliografía ficticia ni cites juristas o numeraciones (D.x.x) que no estén en el bloque de fuentes.
         `;
@@ -429,6 +435,7 @@ app.post('/api/consulta', async (req, res) => {
 ROL: Juez Romano experto. Estilo directo y resolutivo. Cero retórica.
 TAREA: Dictar Sentencia para: "${currentCaseText}".
 FUENTES: ${bloqueDigesto}
+CONTEXTO DOCENTE: ${contextoFinal}
 INSTRUCCIONES: ${instruccionesSeguridad}
 FORMATO: 1. FALLO. 2. MOTIVACIÓN JURÍDICA.
 `;
@@ -453,13 +460,14 @@ INSTRUCCIONES Y REGLAS ABSOLUTAS:
                 topP: 0.1
             }
         };
-        const respuestaIA = await callGeminiWithRetries(payload, 'laboratorio');
+        const resultado = await callGeminiWithRetries(payload, 'laboratorio',testProvider(req));
+        const respuestaIA = resultado.texto;
         
         if (tipo === 'resolver' && currentCaseText) {
             const key = normalizarTexto(currentCaseText).substring(0, 50);
             guardarEnMemoria(key, respuestaIA);
         }
-        res.json({ respuesta: respuestaIA }); 
+        res.json({ respuesta: respuestaIA,proveedor:resultado.proveedor,modelo:resultado.modelo,fuentes:docs.sources }); 
     } catch (error) { handleApiError(error, res); }
 });
 
@@ -471,9 +479,10 @@ app.post('/api/consulta-unificada', async (req, res) => {
     try {
         const { termino } = req.body;
         const termLower = termino ? normalizarTexto(termino) : "";
-        const pagInfo = buscarPagina(termino);
+        const docs=biblioteca.search(termino);
+        const pagInfo=docs.topic||{pagina:null,titulo:null};
 
-        if (DEMO_CACHE[termLower]) {
+        if (!docs.sources.length && DEMO_CACHE[termLower]) {
             const data = DEMO_CACHE[termLower].json;
             return res.json({
                 respuesta: data.respuesta_principal, 
@@ -482,7 +491,7 @@ app.post('/api/consulta-unificada', async (req, res) => {
                 titulo: pagInfo.titulo
             });
         }
-        if (MEMORIA_DINAMICA.has(termLower)) {
+        if (!docs.sources.length && MEMORIA_DINAMICA.has(termLower)) {
              const jsonCached = limpiarYParsearJSON(MEMORIA_DINAMICA.get(termLower));
              return res.json({
                 respuesta: jsonCached.respuesta_principal, 
@@ -493,7 +502,7 @@ app.post('/api/consulta-unificada', async (req, res) => {
         }
 
         const terminoNormalizado = termino ? termino.toLowerCase().trim() : '';
-        const contextoManual = getContextoRelevante(terminoNormalizado);
+        const contextoManual=docs.context||getContextoRelevante(terminoNormalizado);
         const coincidencias = buscarDigesto(terminoNormalizado);
         let digestoTxt = coincidencias.length > 0 
             ? coincidencias.map(c => `CITA: (${c.cita}) "${c.latin}"`).join('\n')
@@ -502,11 +511,11 @@ app.post('/api/consulta-unificada', async (req, res) => {
         const prompt = `
 Eres un académico riguroso de Derecho Romano.
 Define y explica objetivamente el concepto: "${termino}".
-CONTEXTO DEL MANUAL DE LA CÁTEDRA: ${contextoManual || "No hay contexto del manual disponible."}
+CONTEXTO DOCENTE RECUPERADO (Lecciones de Derecho Romano 2026 es prioritario; Introducción 2023 amplía; Bases del sistema jurídico continental 2026 compara): ${contextoManual || "No hay contexto documental disponible."}
 FUENTES DIGESTO: ${digestoTxt || "No hay fuentes del Digesto disponibles."}
 
 INSTRUCCIONES Y REGLAS:
-1. Responde basándote prioritariamente en el CONTEXTO DEL MANUAL y las FUENTES DIGESTO aportadas. Si no son suficientes, utiliza principios generales.
+1. Da prioridad a Lecciones de Derecho Romano (2026) y sus fragmentos recuperados, contrasta la ampliación de El Derecho Romano como introducción al Derecho (2023) y usa Bases del sistema jurídico continental (2026) únicamente para conexiones contemporáneas. Nunca atribuyas páginas o fuentes no verificadas; distingue discrepancias doctrinales sin ocultarlas. Si el contexto no cubre la consulta, reconoce el límite y utiliza principios generales con cautela.
 2. Prohibición total de inventar fuentes concretas o bibliografía ficticia. 
 3. ESTILO ESTRICTO: Ve directamente al grano. Tienes totalmente prohibido usar saludos, introducciones teatrales o frases como "Bienvenido a la cátedra" o "Según el manual de la asignatura". Sé conciso, objetivo y estructurado (usa listas o encabezados si ayuda a la claridad).
 4. Redacta la respuesta utilizando exclusivamente vocabulario y gramática de España.
@@ -522,15 +531,18 @@ NO escribas nada fuera del JSON.
                 topP: 0.1
             }
         };
-        const respuestaTexto = await callGeminiWithRetries(payload, 'ulpiano');
-        guardarEnMemoria(termLower, respuestaTexto);
-        const jsonRespuesta = limpiarYParsearJSON(respuestaTexto);
+        const resultado = await callGeminiWithRetries(payload, 'ulpiano',testProvider(req));
+        const jsonRespuesta = limpiarYParsearJSON(resultado.texto);
         
         res.json({
             respuesta: jsonRespuesta.respuesta_principal,
             moderno: jsonRespuesta.conexion_moderna,
             pagina: pagInfo.pagina, 
-            titulo: pagInfo.titulo   
+            titulo: pagInfo.titulo,
+            notaPagina:pagInfo.notaPagina||null,
+            proveedor:resultado.proveedor,
+            modelo:resultado.modelo,
+            fuentes:docs.sources
         });
     } catch (error) { handleApiError(error, res); }
 });
@@ -543,8 +555,8 @@ app.post('/api/consulta-parentesco', async (req, res) => {
             contents: [{ parts: [{ text: prompt }] }],
             generationConfig: { temperature: 0 } 
         };
-        const resp = await callGeminiWithRetries(payload, 'parentesco');
-        res.json(limpiarYParsearJSON(resp));
+        const resp = await callGeminiWithRetries(payload, 'parentesco',testProvider(req));
+        res.json({...limpiarYParsearJSON(resp.texto),proveedor:resp.proveedor,modelo:resp.modelo});
     } catch (error) { handleApiError(error, res); }
 });
 
@@ -557,6 +569,7 @@ const startServer = async () => {
     try {
         manualJson = JSON.parse(await fs.readFile('manual.json', 'utf-8'));
         indiceJson = JSON.parse(await fs.readFile('indice.json', 'utf-8'));
+        biblioteca.load();
         try {
             digestoJson = JSON.parse(await fs.readFile('digesto_traducido_final.json', 'utf-8'));
         } catch (e) {
