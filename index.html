@@ -4491,7 +4491,7 @@
         function pieRespuestaIA(result) {
             if(!result||!result.proveedor)return '';
             const modelo=result.modelo||result.proveedor;
-            const tag='Generado con '+(result.proveedor==='openai'?'OpenAI':'Google Gemini')+' · '+modelo;
+            const tag=result.proveedor==='docente' ? 'Explicación docente revisada · No generada por IA' : 'Generado con '+(result.proveedor==='openai'?'OpenAI':'Google Gemini')+' · '+modelo;
             const fuentes=(result.fuentes||[]).slice(0,3).map(f=>{
                 let t=f.obra+' ('+f.edicion+')';
                 if(f.tema)t+=' · tema '+f.tema;
