@@ -404,13 +404,14 @@ app.post('/api/consulta', async (req, res) => {
     try {
         const { tipo, termino, currentCaseText } = req.body;
         
-        if (tipo === 'resolver' && currentCaseText) {
+        if (tipo === 'resolver' && currentCaseText && !biblioteca.search('fórmula').sources.length) {
             const txt = normalizarTexto(currentCaseText);
             const key = txt.substring(0, 50);
             if (txt.includes("hurto") && DEMO_CACHE["hurto"]) return res.json({ respuesta: DEMO_CACHE["hurto"].respuesta });
             if (MEMORIA_DINAMICA.has(key)) return res.json({ respuesta: MEMORIA_DINAMICA.get(key) });
         }
 
+        if (!biblioteca.search('fórmula').sources.length) return res.status(503).json({error:'PRIVATE_LIBRARY_NOT_READY',message:'Las fuentes docentes todavía no están configuradas.'});
         const terminoBusqueda = (tipo === 'resolver' && currentCaseText) ? currentCaseText : termino;
         const terminoNormalizado = terminoBusqueda ? terminoBusqueda.substring(0, 100) : ''; 
         
@@ -471,8 +472,9 @@ INSTRUCCIONES Y REGLAS ABSOLUTAS:
     } catch (error) { handleApiError(error, res); }
 });
 
-app.post('/api/buscar-pagina', (req, res) => { 
-    res.json(buscarPagina(req.body.termino)); 
+app.post('/api/buscar-pagina', (req, res) => {
+    const found=biblioteca.search(req.body?.termino||'');
+    res.json(found.topic||{pagina:null,titulo:null});
 });
 
 app.post('/api/consulta-unificada', async (req, res) => {
@@ -482,6 +484,7 @@ app.post('/api/consulta-unificada', async (req, res) => {
         const docs=biblioteca.search(termino);
         const pagInfo=docs.topic||{pagina:null,titulo:null};
 
+        if (biblioteca.search('fórmula').sources.length===0) return res.status(503).json({error:'PRIVATE_LIBRARY_NOT_READY',message:'Las fuentes docentes todavía no están configuradas.'});
         if (!docs.sources.length && DEMO_CACHE[termLower]) {
             const data = DEMO_CACHE[termLower].json;
             return res.json({
